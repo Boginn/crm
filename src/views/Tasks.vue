@@ -1,8 +1,7 @@
 <template>
 <v-container>
     <v-row>
-        <Search>
-        </Search>
+        <Search/>
 
       <v-col>
         
@@ -43,15 +42,13 @@
           </v-col>
     </v-row>
 
-      <Back>
-      </Back>
+      <Back/>
 </v-container>
 </template>
 
 <script>
 import Search from '../components/Search.vue'
 import Back from '../components/Back.vue'
-import examples from '../data/examples.js'
 
 export default {
   name: "Tasks",
@@ -62,9 +59,7 @@ export default {
   },
 
   created() {
-    examples.tasks.forEach(element => {
-      this.tasks.push(element)
-    });
+
   },
 
   computed: {

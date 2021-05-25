@@ -1,10 +1,20 @@
 <template>
   <v-app>
+    <v-system-bar
+  height="80"
+></v-system-bar>
     <v-app-bar app dark color="primary" v-if="user">
+      <v-container fluid >
+
+<v-row  >
+
+ <v-col class="d-flex align-content-center flex-wrap">
+      <RouteNav/>
+
+<DigitalClock :blink="true" class="ml-1"/>
+</v-col>
 <v-spacer></v-spacer>
-
-      <RouteNav> </RouteNav>
-
+<v-col class="d-flex justify-center align-content-center flex-wrap">
       <router-link to="/cases" class="white--text">
         <v-tab>
           Cases
@@ -20,7 +30,9 @@
           Perps
         </v-tab>
       </router-link>
-
+</v-col>
+<v-spacer></v-spacer>
+<v-col >
       <div class="d-flex text-center">
         <router-link class="white--text" to="/crm">
         <v-img
@@ -37,19 +49,10 @@
           {{user.badge}}: {{user.name}}
         </v-tab>
 
-        <!-- <router-link class="white--text" to="/crm">
-          <v-img
-            alt="LÖKE"
-            class="shrink hidden-sm-and-down"
-            contain
-            min-width="110"
-            src="./assets/name.png"
-            width="110"
-          />
-        </router-link> -->
       </div>
-
-<v-spacer></v-spacer>
+</v-col>
+</v-row>
+      </v-container>
 
     </v-app-bar>
 
@@ -61,12 +64,16 @@
 
 <script>
 import RouteNav from "./components/RouteNav.vue";
+import DigitalClock from "vue-digital-clock";
+import examples from "./data/examples.js";
+
 
 export default {
   name: "App",
 
   components: {
     RouteNav,
+    DigitalClock,
   },
 
   created() {
@@ -75,13 +82,40 @@ export default {
 
         this.$router.push("/");
       }
+
+    examples.criminals.forEach((element) => {
+      this.criminals.push(element);
+    });
+    examples.tasks.forEach((element) => {
+      this.tasks.push(element);
+    });
+    examples.crimes.forEach((element) => {
+      this.cases.push(element);
+    });
+    examples.users.forEach((element) => {
+      this.users.push(element);
+    });
     
   },
 
   computed: {
     user() {
       return this.$store.getters.user;
-    }
+    },
+
+
+        criminals() {
+      return this.$store.getters.criminals;
+    },
+    tasks() {
+      return this.$store.getters.tasks;
+    },
+    cases() {
+      return this.$store.getters.cases;
+    },
+    users() {
+      return this.$store.getters.roster;
+    },
   },
 
   data: () => ({
@@ -91,11 +125,10 @@ export default {
 </script>
 
 <style>
+
 a {
   text-decoration: none;
 }
-.margins {
-  margin-left: 100px;
-  margin-right: 100px;
-}
+
+
 </style>

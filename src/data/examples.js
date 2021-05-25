@@ -12,9 +12,9 @@ crimes: [
     address: 'Murder Road 3',
     committed: services.getDateString(),
     crimeType: 'Murder',
-    date: services.getDate(),
+    date: services.getDateString(),
     shortDesc: 'A murder she wrote',
-    urgency: 9,
+    severity: 9,
     caseOpen: true,
     notes: ['notelist'],
     victims: [
@@ -53,9 +53,9 @@ crimes: [
     address: 'School Road 3',
     committed: services.getDateString(),
     crimeType: 'Robbery',
-    date: services.getDate(),
+    date: services.getDateString(),
     shortDesc: 'A robbery she wrote',
-    urgency: 9,
+    severity: 3,
     caseOpen: true,
     notes: ['notelist'],
     victims: [

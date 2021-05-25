@@ -6,7 +6,7 @@
           <v-row class="text-center">
             <v-col>
               <h1>
-                CRM
+                LÖKE
               </h1>
 
               <h2>
@@ -14,8 +14,7 @@
               </h2>
             </v-col>
           </v-row>
-          <v-form ref="form" v-model="valid" lazy-validation  class="bg">
-
+          <v-form ref="form" v-model="valid" lazy-validation class="bg">
             <v-row>
               <v-spacer></v-spacer>
               <v-col>
@@ -52,9 +51,7 @@
                 </v-btn>
               </v-col>
             </v-row>
-
           </v-form>
-
         </v-card>
       </v-col>
     </v-row>
@@ -62,7 +59,6 @@
 </template>
 
 <script>
-// import HelloWorld from '../components/HelloWorld'
 import services from "../services/services.js";
 import examples from "../data/examples.js";
 
@@ -75,14 +71,9 @@ export default {
     });
     console.log(this.users);
 
-
-    if(this.user) {
+    if (this.user) {
       this.$router.push("crm/");
     }
-  },
-
-  components: {
-    // HelloWorld,
   },
 
   computed: {
@@ -124,18 +115,15 @@ export default {
           }
         });
 
-
         if (user.password == this.input.password) {
           this.reset();
           this.msg = "Verified";
-          this.$store.dispatch('setUser', user);
+          this.$store.dispatch("setUser", user);
 
           this.$router.push("crm/");
         } else {
           this.msg = "Wrong password";
         }
-
- 
       }
     },
     reset() {
@@ -147,7 +135,6 @@ export default {
 
 <style scoped>
 .bg {
-  background: url('../assets/logotp.png') no-repeat  center;
+  background: url("../assets/logotp.png") no-repeat center;
 }
 </style>
-

@@ -2,8 +2,8 @@
   <v-container>
     <v-row>
 
-        <Search>
-        </Search>
+        <Search/>
+        
         
       <v-col>
 
@@ -62,23 +62,20 @@
     </v-simple-table>
           </v-col>
     </v-row>
- <Back>
- </Back>
+ <Back/>
   </v-container>
 </template>
 
 <script>
 import Search from '../components/Search'
 import Back from '../components/Back'
-import examples from '../data/examples.js'
+
 
 export default {
   name: "Perps",
 
     created() {
-    examples.criminals.forEach(element => {
-      this.criminals.push(element)
-    });
+
   },
 
   components: {

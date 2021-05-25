@@ -2,8 +2,10 @@
   <v-container>
     <v-row>
       <v-col
-        :sm="6"
-        :md="4"
+        :xs="12"
+        :sm="12"
+        :md="6"
+        :lg="4"
         class="mt-6"
         v-for="option in options"
         :key="option"
@@ -22,15 +24,17 @@
 
 <script>
 // import HelloWorld from '../components/HelloWorld'
-
 export default {
   name: "Home",
 
   components: {
     // HelloWorld,
   },
+  created() {
 
+  },
   computed: {
+
     /*
     bool: {
       get() {
@@ -45,7 +49,7 @@ export default {
 
   data: function() {
     return {
-      options: ["cases", "tasks", "perps", "file", "report", 'logout'],
+      options: ["cases", "tasks", "perps", "file", "report", "logout"],
     };
   },
 

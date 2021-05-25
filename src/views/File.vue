@@ -1,10 +1,10 @@
 <template>
-  <div class="margins mt-5">
-    <div>
+  <div class="mt-5">
+    <v-container>
       <v-col>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-row>
-            <v-col cols="9">
+            <v-col>
               <h1 class="text-center">File a crime</h1>
               <v-text-field
                 v-model="name"
@@ -48,38 +48,39 @@
             </v-col>
 
             <v-col class="text-center">
-              <v-date-picker
-                v-model="pickedDate"
-                color="tertiary"
-              ></v-date-picker>
-            </v-col>
-          </v-row>
-
-          <People :people="victims" :crimeId="id" :suspected="false"> </People>
-
-          <People :people="suspects" :crimeId="id" :suspected="true"> </People>
-
-          <v-row> </v-row>
-          <v-row>
-            <v-col cols="9">
-              <v-btn
-                block
-                :disabled="!valid"
-                color="success"
-                class="mr-4"
-                @click="validate"
+              <v-date-picker v-model="pickedDate" color="tertiary"
+                >Select the date of the crime</v-date-picker
               >
-                Submit
-              </v-btn>
+                        <v-container>
 
-              <v-btn block color="error" class="mr-4" @click="reset">
-                Reset
-              </v-btn>
+          </v-container>
             </v-col>
           </v-row>
+
+          <People :people="victims" :crimeId="id" :suspected="false" />
+
+          <People :people="suspects" :crimeId="id" :suspected="true" />
+                      <v-row>
+              <v-col>
+                <v-btn
+                x-large
+                                    :disabled="!valid"
+                  color="success"
+                  class="mr-4"
+                  @click="validate"
+                >
+                  Submit
+                </v-btn>
+
+                <v-btn
+                x-large color="error" class="mr-4" @click="reset">
+                  Reset
+                </v-btn>
+              </v-col>
+                          </v-row>
         </v-form>
       </v-col>
-    </div>
+    </v-container>
   </div>
 </template>
 
@@ -102,7 +103,7 @@ export default {
       return this.$store.getters.id;
     },
     date() {
-      return services.getDate();
+      return services.getDateString();
     },
     committed() {
       if (this.pickedDate) {

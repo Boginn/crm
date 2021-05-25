@@ -22,17 +22,21 @@
         </v-icon></v-btn
       >
 
-      <div v-if="expand">
+      <div v-if="expand && subject">
         <v-col
-          v-for="person in people.slice().reverse()"
-          :key="person.id"
+
           class="mb-5"
         >
           <v-row>
-            <v-col>
+            <v-col
+                    :xs="12"
+        :sm="12"
+        :md="6"
+        :lg="4">
               <v-text-field
               filled
-                v-model="person.name"
+              dense
+                v-model="subject.name"
                 :rules="rules.name"
                 label="Name"
                 required
@@ -40,16 +44,17 @@
 
               <v-text-field
               filled
-                v-model="person.address"
+              dense
+                v-model="subject.address"
                 :rules="rules.default"
                 label="Address"
                 
               ></v-text-field>
-            </v-col>
-            <v-col>
+
               <v-text-field
               filled
-                v-model="person.age"
+              dense
+                v-model="subject.age"
                 :rules="rules.default"
                 label="Age"
                 
@@ -57,24 +62,25 @@
 
               <v-text-field
               filled
-                v-model="person.phone"
+              dense
+                v-model="subject.phone"
                 :rules="rules.default"
                 label="Phone"
                 
               ></v-text-field>
             </v-col>
-            <v-row v-if="person.suspect">
+            <v-row v-if="subject.suspect">
               <v-col>
                 <v-checkbox
                 dense
-                  v-model="person.hasBeenToPrison"
+                  v-model="subject.hasBeenToPrison"
                   :rules="rules.checkbox"
                   label="Has this person been in prison?"
                   
                 ></v-checkbox>
                 <v-text-field
                 
-                  v-model="person.note"
+                  v-model="subject.note"
                   :rules="rules.default"
                   label="Note"
                   required
@@ -111,7 +117,7 @@
               </v-icon></v-btn
             >
 
-            <v-divider class="mt-2"></v-divider>
+            <v-divider class="mt-2 mb-2"></v-divider>
           </h3>
         </v-container>
       </div>
@@ -143,6 +149,9 @@ export default {
     rules() {
       return services.rules;
     },
+    subject() {
+      return this.people.slice().reverse()[0];
+    }
   },
 
   data: () => ({
@@ -153,7 +162,6 @@ export default {
 
   methods: {
     add() {
-      console.log(this.people);
       this.id++;
       if (this.suspected) {
         this.people.push(new data.Suspect(this.id, this.crimeId));
@@ -163,7 +171,6 @@ export default {
       this.expand = true;
     },
     remove(person) {
-      console.log(this.people);
       this.people.splice(this.people.indexOf(person), 1);
     },
   },
