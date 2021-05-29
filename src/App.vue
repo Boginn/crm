@@ -7,22 +7,21 @@
           <v-col class="d-flex align-content-center flex-wrap">
             <v-tab>
               <!-- <RouteNav/> -->
-<router-link to="/" class="white--text">
-
-              <DigitalClock :blink="true" class="ml-2" />
-</router-link>
+              <router-link to="/" class="white--text">
+                <DigitalClock :blink="true" class="ml-2" />
+              </router-link>
             </v-tab>
           </v-col>
           <v-spacer></v-spacer>
           <v-col
-          cols="6"
+            cols="6"
             class="d-none d-md-inline-flex justify-center align-content-center flex-wrap "
           >
             <RouteNav />
           </v-col>
           <v-spacer></v-spacer>
           <v-col class="d-flex justify-end">
-<User :user="user" />
+            <User :user="user" />
           </v-col>
         </v-row>
       </v-container>

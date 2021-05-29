@@ -1,71 +1,42 @@
 <template>
   <v-container>
-    <v-row>
-      <Search />
+    <v-row class="d-flex justify-start" >
 
-      <v-col>
-        <v-simple-table class="fifth">
-          <thead>
-            <tr>
-              <th class="text-left" @click="sortByName()">
-                Name <v-icon small >mdi-sort-ascending</v-icon>
-              </th>
-              <th class="text-left" >
-                Address 
-              </th>
-              <th class="text-left" >
-                Committed 
-              </th>
-              <th class="text-left" >
-                Added 
-              </th>
-              <th class="text-left" @click="sortBySeverity()">
-                Severity <v-icon small >mdi-sort-ascending</v-icon>
-              </th>
-              <th class="text-left" @click="sortByOpen()">
-                Open <v-checkbox>Open</v-checkbox>
-              </th>
-            </tr>
-          </thead>
-          <tbody v-for="crime in cases" :key="crime.id">
-            <tr v-if="crime.name.toLowerCase().includes(search.toLowerCase())">
-              <td>
-                <router-link class="white--text" :to="`${crime.id}`">
-                  {{ crime.name }}
-                </router-link>
-              </td>
 
-              <td>
-                <router-link class="white--text" :to="`${crime.id}`">
-                  {{ crime.address }}
-                </router-link>
-              </td>
+      <Search :location="$options.name"/>
 
-              <td>
-                <router-link class="white--text" :to="`${crime.id}`">
-                  {{ crime.committed }}
-                </router-link>
-              </td>
-              <td>
-                <router-link class="white--text" :to="`${crime.id}`">
-                  {{ crime.date }}
-                </router-link>
-              </td>
-              <td>
-                <router-link class="white--text" :to="`${crime.id}`">
-                  {{ crime.severity }}
-                </router-link>
-              </td>
-              <td>
-                <router-link class="white--text" :to="`${crime.id}`">
-                  <span v-if="crime.caseOpen">Open</span
-                  ><span v-else>Closed</span>
-                </router-link>
-              </td>
-            </tr>
-          </tbody>
-        </v-simple-table>
-      </v-col>
+      <NavChip :option="option" />
+
+      <v-data-table
+        :headers="headers"
+        :items="cases"
+        :search="search"
+        :items-per-page="5"
+        item-key="name"
+        class="elevation-6 fifth ma-5 pa-4 fill-width"
+      >
+        <template v-slot:header.caseOpen="{}">
+          <v-row class="d-flex justify-center align-center flex-wrap">
+
+          Include closed
+          <v-checkbox v-model="showOpen"  class="ml-1 shrink"></v-checkbox>
+          </v-row>
+        </template>
+
+        <template v-slot:item.name="{ item }">
+          <router-link :to="`${item.id}`" class="table">
+            <v-icon class="mb-1" small>mdi-arrow-top-left</v-icon>
+        {{ item.name }}
+          </router-link>
+        </template>
+
+        <template v-slot:item.caseOpen="{ item }">
+          <span class="green--text" v-if="item.caseOpen">Open</span><span class="red--text" v-else>Closed</span>
+        </template>
+
+        
+      </v-data-table>
+
     </v-row>
 
     <Back />
@@ -74,59 +45,61 @@
 
 <script>
 import Search from "../components/Search.vue";
+import NavChip from "../components/NavChip.vue";
 import Back from "../components/Back.vue";
-import services from "../services/services.js";
+import data from '../data/data.js'
 
 export default {
   name: "Cases",
 
   components: {
     Search,
+    NavChip,
     Back,
   },
 
-  created() {
-    this.cases = this.defaultCases;
-  },
+  created() {},
 
   computed: {
     search() {
       return this.$store.getters.search;
     },
-    defaultCases() {
-      return this.$store.getters.cases;
+    cases() {
+      if (!this.showOpen) {
+        return this.$store.getters.cases.filter(
+          (crime) => crime.caseOpen == true
+        );
+      } else {
+        return this.$store.getters.cases;
+      }
     },
-    
-   
+    headers() {
+      return data.headers.cases;
+    },
+    option() {
+      return data.options[4];
+    }
   },
 
   data: function() {
     return {
-      cases: undefined,
+      showOpen: true,
 
-      filters: {
-        severity: true,
-        name: true,
 
-        open: true,
-      }
     };
-  },
-
-  methods: {
-sortBySeverity() {
-    this.cases = services.sorters.sortBySeverity(this.defaultCases, this.filters.severity);
-    this.filters.severity = !this.filters.severity;
-},
-sortByName() {
-    this.cases = services.sorters.sortByName(this.defaultCases, this.filters.name);
-    this.filters.name = !this.filters.name;
-},
-
-
-sortByOpen() {
-    this.filters.open = !this.filters.open;
-},
   },
 };
 </script>
+
+<style >
+.table {
+  font-size: 12pt;
+  color: white;
+  font-weight: bold;
+  
+}
+.table:hover {
+  color: #13184b;
+  
+}
+</style>

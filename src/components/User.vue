@@ -23,7 +23,7 @@
         <v-list class="fourth">
           <v-list-item v-for="(item, index) in items" :key="index">
             <router-link :to="item.route" class="white--text">
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item-title><v-icon small class="mr-1">{{item.icon}}</v-icon>{{ item.title }}</v-list-item-title>
             </router-link>
           </v-list-item>
         </v-list>
@@ -45,10 +45,12 @@ export default {
       {
         title: "Settings",
         route: "/settings",
+        icon: 'mdi-cog',
       },
       {
         title: "Logout",
         route: "/logout",
+        icon: 'mdi-logout',
       },
     ],
   }),

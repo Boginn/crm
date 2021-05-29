@@ -37,6 +37,11 @@ const routes = [
     name: 'Perps',
     component: () => import('../views/Perps.vue')
   },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: () => import('../views/Settings.vue')
+  },
 
   //create
   {

@@ -5,7 +5,7 @@
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-row>
             <v-col class="sixth">
-              <h1 class="text-center">File a crime</h1>
+              <h1 class="text-center mb-2">File Criminal Case #{{id}}</h1>
               <v-text-field
                 filled
                 v-model="name"
@@ -131,7 +131,13 @@ import data from "../data/data.js";
 export default {
   name: "File",
 
-  created() {},
+  created() {
+    if (!this.user) {
+     
+        this.$router.push("/");
+      
+    }
+  },
 
   components: {
     People,
@@ -139,7 +145,10 @@ export default {
 
   computed: {
     id() {
-      return this.$store.getters.id;
+      return this.$store.getters.caseId;
+    },
+    user() {
+      return this.$store.getters.user;
     },
     date() {
       return services.getDateString();

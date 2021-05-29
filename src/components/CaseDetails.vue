@@ -29,7 +29,7 @@
           <v-row>
             <v-col>
               <div class="secondary">
-                <v-card-title class="ml-3">Victims:</v-card-title>
+                <v-card-title>Victims:</v-card-title>
                 <v-card-text v-for="victim in crime.victims" :key="victim.id">
                   <div>Name: {{ victim.name }}</div>
                   <div>Age: {{ victim.age }}</div>
@@ -40,7 +40,7 @@
             </v-col>
             <v-col>
               <div class="warning">
-                <v-card-title class="ml-3">Suspects:</v-card-title>
+                <v-card-title>Suspects:</v-card-title>
                 <v-card-text
                   v-for="suspect in crime.suspects"
                   :key="suspect.id"
@@ -49,6 +49,7 @@
                   <div>Age: {{ suspect.age }}</div>
                   <div>Address: {{ suspect.address }}</div>
                   <div>Phone: {{ suspect.phone }}</div>
+                  <div>Ever jailed: {{ suspect.hasBeenToPrison }}</div>
                   <div>Note: {{ suspect.note }}</div>
                 </v-card-text>
               </div>
@@ -56,7 +57,8 @@
           </v-row>
 
           <v-row>
-            <v-col v-if="crime.notes[0].body">
+            <!-- TODO: ADD NOTE -->
+            <v-col v-if="crime.notes">
               <v-card-text
                 class="fifth"
                 v-for="note in crime.notes.slice().reverse()"
@@ -67,7 +69,7 @@
             </v-col>
           </v-row>
         </v-card>
-        <v-btn block @click="$router.go(-1)">back</v-btn>
+        <v-btn class="ma-0" block @click="$router.go(-1)">back</v-btn>
       </v-col>
     </v-row>
   </v-container>

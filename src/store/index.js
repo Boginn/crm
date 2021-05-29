@@ -28,8 +28,18 @@ export default new Vuex.Store({
     search(state) {
       return state.search;
     },
-    id(state) {
+
+    caseId(state) {
       return state.cases.length+1;
+    },
+    taskId(state) {
+      return state.tasks.length+1;
+    },
+
+    //
+    language() {
+      // there is currently only english available
+      return 'English';
     },
 
     //arrays

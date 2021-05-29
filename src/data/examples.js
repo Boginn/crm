@@ -51,7 +51,7 @@ crimes: [
     id: 2,
     name: 'Robbery in school',
     address: 'School Road 3',
-    committed: services.getDateString(),
+    committed: '16/03/2019',
     crimeType: 'Robbery',
     date: services.getDateString(),
     shortDesc: 'A robbery she wrote',
@@ -77,6 +77,40 @@ crimes: [
         address: "Student House",
         phone: "5553212",
         age: 17,
+      },
+  
+    ],
+  },
+  {
+    id: 3,
+    name: 'lambamorð',
+    address: 'Lambhagastígur 59',
+    committed: '01/04/2020',
+    crimeType: 'Murder',
+    date: services.getDateString(),
+    shortDesc: 'Keyrt á lamb',
+    severity: 10,
+    caseOpen: false,
+    notes: ['notelist'],
+    victims: [
+      {
+        id: 1,
+        crimeId: 3,
+        name: "lamb",
+        address: "lambavegur",
+        phone: "8979523",
+        age: 3,
+      },
+
+    ],
+    suspects: [
+      {
+        id: 1,
+        crimeId: 3,
+        name: "krimms",
+        address: "jesss",
+        phone: "64846524",
+        age: 133,
       },
   
     ],
@@ -108,26 +142,37 @@ criminals: [
 tasks: [
   {
     id: 1,
+    date: services.getDate(),
     name: "Taka viðtal við Jónas varðandi morð",
     assigned: "REK13",
     status: false,
   },
   {
     id: 2,
+    date: services.getDate(),
     name: "Athuga hjá rannsóknarstofu hvort að sýni hefur komið til baka",
     assigned: "REK13",
     status: false,
   },
   {
     id: 3,
+    date: services.getDate(),
     name: "Finna þrjá karlmenn í line-up",
     assigned: "REK10",
     status: true,
   },
   {
     id: 4,
+    date: services.getDate(),
     name: "Gefa út sekt vegna ölvunar-akstur",
     assigned: "REK13",
+    status: false,
+  },
+  {
+    id: 5,
+    date: services.getDate(),
+    name: "Fá sér kakó",
+    assigned: "REK69",
     status: false,
   },
 ],
@@ -156,7 +201,7 @@ users: [
     admin: false,
   },
   {
-    id: 2,
+    id: 3,
     username: 'nonni',
     password: "zxc",
     name: "Nonni Svín",
@@ -167,7 +212,7 @@ users: [
     admin: false,
   },
   {
-    id: 2,
+    id: 4,
     username: 'fannar',
     password: "ntv",
     name: "Fannar",
@@ -175,7 +220,7 @@ users: [
     email: "fannar@logga.is",
     phone: "512345",
     active: true,
-    admin: true,
+    admin: false,
   },
 
 ],

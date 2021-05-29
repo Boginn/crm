@@ -85,7 +85,7 @@
                   mdi-account-multiple-plus
                 </v-icon></v-btn
               >
-              <v-btn small outlined @click="remove(subject)" title="Ok"
+              <v-btn small outlined @click="cancel()" title="Cancel"
                 ><v-icon>
                   mdi-cancel
                 </v-icon></v-btn
@@ -161,6 +161,7 @@ export default {
     id: 0,
     isEditing: false,
     blank: [],
+    isNew: false,
   }),
 
   methods: {
@@ -171,24 +172,30 @@ export default {
         this.blank.push(new data.Victim(this.id, this.crimeId));
       }
       this.expand = true;
+      this.isNew = true;
     },
     add() {
-      this.id++;
-      if(!this.isEmptyObject(this.blank[0])) {
+
+      if(!this.isEmptyObject(this.blank[0]) && this.isNew) {
+        this.id++;
 
         this.people.push(this.blank[0]);
       }
+      
       this.blank = [];
-      console.log(this.people)
       this.expand = false;
     },
     edit(obj) {
       this.expand = true;
+      this.isNew = false;
       this.blank.push(obj);
-      this.people.splice(this.people.indexOf(obj), 1);
     },
-    remove(person) {
-      this.people.splice(this.people.indexOf(person), 1);
+    remove(obj) {
+      this.people.splice(this.people.indexOf(obj), 1);
+      this.expand = false;
+    },
+    cancel() {
+      this.blank = [];
       this.expand = false;
     },
     isEmptyObject(obj) {

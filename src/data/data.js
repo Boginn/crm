@@ -30,6 +30,21 @@ export default {
     }
   },
 
+  Task: class Task {
+    id;
+    name = '';
+    assigned = '';
+    status = false;
+    date = undefined;
+
+    constructor(id, date) {
+      // super();
+      this.id = id;
+      this.date = date;
+
+    }
+  },
+
   crimeTypes: [
     "Robbery",
     "Murder",
@@ -41,150 +56,156 @@ export default {
     "Other",
   ],
 
-  // openCases = [
+  options: [
+    {
+      name: "Perps",
+      path: "perps",
+      image: require("@/assets/file.png"),
+      icon: "mdi-account-cowboy-hat",
+      color: "fifth",
+    },
+    {
+      name: "Tasks",
+      path: "tasks",
+      image: require("@/assets/tasks.png"),
+      icon: "mdi-folder-table",
+      color: "fifth",
+    },
+    {
+      name: "Cases",
+      path: "cases",
+      image: require("@/assets/cases.png"),
+      icon: "mdi-file-multiple",
+      color: "fifth",
+    },
+    {
+      name: "Report",
+      path: "report",
+      image: require("@/assets/report.png"),
+      icon: "mdi-file-document-edit",
+      color: "seventh",
+    },
+    {
+      name: "File",
+      path: "file",
+      image: require("@/assets/file.png"),
+      icon: "mdi-file-upload",
+      color: "seventh",
+    },
+  ],
+
+  otherOptions: [
+    {
+      name: "Add",
+      path: false,
+      icon: "mdi-folder",
+      color: "secondary",
+    },
+  ],
+
+  headers: {
+    cases: [
+      { text: "Name", value: "name" },
+      { text: "Address", value: "address" },
+      { text: "Committed", value: "committed" },
+      { text: "Added", value: "date" },
+      { text: "Severity", value: "severity" },
+      { text: "Open", value: "caseOpen", sortable: false, align: "center" },
+    ],
+    tasks: [
+      { text: "Date", value: "date"},
+      { text: "Name", value: "name", sortable: false },
+      { text: "Assigned", value: "assigned", },
+      { text: "Completed", value: "status",  align: "center" },
+    ],
+  },
+
+  // tasks: [
   //   {
   //     id: 1,
-  //     name: "Morð 14.12.2020 Rvk",
-  //     shortDescription: "Sutt lýsing um glæp",
-  //     severness: 10,
+  //     name: "Taka viðtal við Jónas varðandi morð",
+  //     assigned: "REK13",
+  //     status: false,
   //   },
   //   {
   //     id: 2,
-  //     name: "Morð 14.12.2020 Rvk",
-  //     shortDescription: "Sutt lýsing um glæp",
-  //     severness: 10,
+  //     name: "Athuga hjá rannsóknarstofu hvort að sýni hefur komið til baka",
+  //     assigned: "REK13",
+  //     status: false,
   //   },
-  // ];
-  tasks: [
-    {
-      id: 1,
-      name: "Taka viðtal við Jónas varðandi morð",
-      assigned: "REK13",
-      status: false,
-    },
-    {
-      id: 2,
-      name: "Athuga hjá rannsóknarstofu hvort að sýni hefur komið til baka",
-      assigned: "REK13",
-      status: false,
-    },
-    {
-      id: 3,
-      name: "Finna þrjá karlmenn í line-up",
-      assigned: "REK10",
-      status: true,
-    },
-    {
-      id: 4,
-      name: "Gefa út sekt vegna ölvunar-akstur",
-      assigned: "REK13",
-      status: false,
-    },
-  ],
+  //   {
+  //     id: 3,
+  //     name: "Finna þrjá karlmenn í line-up",
+  //     assigned: "REK10",
+  //     status: true,
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Gefa út sekt vegna ölvunar-akstur",
+  //     assigned: "REK13",
+  //     status: false,
+  //   },
+  // ],
 
-  crimes: [
-    {
-      id: 1,
-      name: "Rán 11.12.2020 Bæjarbakarí Mosfellsbær",
-      address: "Horngata 3",
-      crimeType: "Rán",
-      date: "11.12.2020",
-      shortDesc: "Stutt lýsing",
-      severness: 7,
-      notes: [
-        {
-          id: 1,
-          crimeId: 1,
-          body:
-            "Hermann hringdi og lét vita að ræningjarnir náðu að stela 5þ kr.",
-          date: "12.12.2020",
-        },
-        {
-          id: 2,
-          crimeId: 1,
-          body: "Jón spæjó heldur að þeir hafi verið með inside-man.",
-          date: "14.12.2020",
-        },
-      ],
-      victims: [
-        {
-          id: 1,
-          crimeId: 1,
-          name: "Hrógmar Hermanns",
-          address: "Dúfnahólar 10",
-          phone: "5553212",
-          age: 43,
-        },
-        {
-          id: 2,
-          crimeId: 1,
-          name: "Hallbera Halldórs",
-          address: "Hafnarbakki 11",
-          phone: "5554312",
-          age: 19,
-        },
-      ],
-      suspect: [{ id: 1, name: "Glanni glæpon" }],
-      caseStatus: true,
-    },
-  ],
+  // crimes: [
+  //   {
+  //     id: 1,
+  //     name: "Rán 11.12.2020 Bæjarbakarí Mosfellsbær",
+  //     address: "Horngata 3",
+  //     crimeType: "Rán",
+  //     date: "11.12.2020",
+  //     shortDesc: "Stutt lýsing",
+  //     severness: 7,
+  //     notes: [
+  //       {
+  //         id: 1,
+  //         crimeId: 1,
+  //         body:
+  //           "Hermann hringdi og lét vita að ræningjarnir náðu að stela 5þ kr.",
+  //         date: "12.12.2020",
+  //       },
+  //       {
+  //         id: 2,
+  //         crimeId: 1,
+  //         body: "Jón spæjó heldur að þeir hafi verið með inside-man.",
+  //         date: "14.12.2020",
+  //       },
+  //     ],
+  //     victims: [
+  //       {
+  //         id: 1,
+  //         crimeId: 1,
+  //         name: "Hrógmar Hermanns",
+  //         address: "Dúfnahólar 10",
+  //         phone: "5553212",
+  //         age: 43,
+  //       },
+  //       {
+  //         id: 2,
+  //         crimeId: 1,
+  //         name: "Hallbera Halldórs",
+  //         address: "Hafnarbakki 11",
+  //         phone: "5554312",
+  //         age: 19,
+  //       },
+  //     ],
+  //     suspect: [{ id: 1, name: "Glanni glæpon" }],
+  //     caseStatus: true,
+  //   },
+  // ],
 
-  criminals: [
-    {
-      id: 1,
-      name: "Kio Briggs",
-      address: "Laufrimi 13",
-      age: 56,
-      phone: "5552211",
-      hasBeenToPrison: false,
-      note: "",
-    },
-    {
-      id: 2,
-      name: "Lalli Johns",
-      address: "Laugarvegur 33",
-      age: 60,
-      phone: "5553322",
-      hasBeenToPrison: true,
-      note: "Mest elsksaði smákrimminn",
-    },
-  ],
-
-  reports: [
-    {
-      id: 1,
-      caseId: 1,
-      userName: "Lárus Lögga",
-      body: "Öll skýrslan. loads of text..",
-    },
-    {
-      id: 2,
-      caseId: 2,
-      userName: "Lárus Lögga",
-      body: "Öll skýrslan. loads of text..",
-    },
-  ],
-
-  users: [
-    {
-      id: 1,
-      name: "Lárus Lögga",
-      badge: "REK12",
-      email: "Lalli@logga.is",
-      phone: "5552299",
-      password: "SuperPassword1",
-      active: true,
-      admin: false,
-    },
-    {
-      id: 1,
-      name: "Ívar yfirlögga",
-      badge: "REK13",
-      email: "ibbi@logga.is",
-      phone: "5752299",
-      password: "MoreSuperPassword1",
-      active: true,
-      admin: true,
-    },
-  ],
+  // reports: [
+  //   {
+  //     id: 1,
+  //     caseId: 1,
+  //     userName: "Lárus Lögga",
+  //     body: "Öll skýrslan. loads of text..",
+  //   },
+  //   {
+  //     id: 2,
+  //     caseId: 2,
+  //     userName: "Lárus Lögga",
+  //     body: "Öll skýrslan. loads of text..",
+  //   },
+  // ],
 };

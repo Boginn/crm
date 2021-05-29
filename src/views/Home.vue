@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row class="d-flex justify-center flex-wrap-reverse">
+    <v-row class="d-flex justify-center flex-wrap-reverse align-content-center mt-6">
       <v-col
         cols="8"
         xl="4"
@@ -8,72 +8,47 @@
         md="4"
         sm="8"
         xs="8"
-        class="mt-6"
         v-for="option in options"
         :key="option.name"
       >
         <v-card
-          class="pa-10 ma-3 bgimg"
-          style="border: 13px solid blue"
+          class="pa-2 ma-3 bgimg"
+          :class="option.color"
         >
-        <!-- <v-card
-          class="pa-10 ma-3 bgimg"
-          :style="{ 'background-image': 'url(' + option.image + ')' }"
-        > -->
+
           <router-link class="white--text" :to="`/${(option.name).toLowerCase()}/`">
             <v-card-title class="d-flex justify-center" >
-              {{ option.name }}
-            <v-icon>{{option.icon}}</v-icon>
+              {{ option.name }} 
+            <v-icon x-large class="ml-2"> {{option.icon}}</v-icon>
             </v-card-title>
           </router-link>
         </v-card>
       </v-col>
     </v-row>
+    <v-col>
+
+      <v-divider class="mt-4"></v-divider>
+      <h5 class="text-center mt-2">LÖKE. Customer Relationship Management.</h5>
+    </v-col>
   </v-container>
 </template>
 
 <script>
+import data from '../data/data.js'
 export default {
   name: "Home",
 
   components: {},
   created() {},
-  computed: {},
+  computed: {
+    options() {
+      return data.options;
+    }
+  },
 
   data: function() {
     return {
-      options: [
-        {
-          name: "Perps",
-          image: require("@/assets/file.png"),
-          icon: 'mdi-account-cowboy-hat',
-          color: 'sixth',
-        },
-        {
-          name: "Tasks",
-          image: require("@/assets/tasks.png"),
-          icon: 'mdi-folder-table',
-          color: 'seventh',
-        },
-        {
-          name: "Cases",
-          image: require("@/assets/cases.png"),
-          icon: 'mdi-file-multiple',
-          color: 'fifth',
-        },
-        {
-          name: "Report",
-          image: require("@/assets/report.png"),
-          icon: 'mdi-file-document-edit',
-          color: 'tertiary',
-        },
-        {
-          name: "File",
-          image: require("@/assets/file.png"),
-          icon: 'mdi-file-upload',
-          color: 'accent',
-        },
-      ],
+
     };
   },
 
