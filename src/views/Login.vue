@@ -5,16 +5,19 @@
         <v-card class="pa-10 sixth ">
           <v-row class="text-center">
             <v-col>
-              <h1>
+              <h1 class="title">
                 LÖKE
               </h1>
+
+
+
 
               <h2>
                 {{ msg }}
               </h2>
             </v-col>
           </v-row>
-          <v-form ref="form" v-model="valid" lazy-validation class="bg">
+          <v-form ref="form" v-model="valid" lazy-validation class="bgimg" :style="{ 'background-image': 'url(' +require('@/assets/logotp.png')+ ')'  }">
             <v-row>
               <v-spacer></v-spacer>
               <v-col>
@@ -46,7 +49,7 @@
             </v-row>
             <v-row>
               <v-col class="text-center">
-                <v-btn :disabled="!valid" color="primary" @click="validate">
+                <v-btn :disabled="!valid" color="secondary" @click="validate">
                   Submit
                 </v-btn>
               </v-col>
@@ -60,17 +63,11 @@
 
 <script>
 import services from "../services/services.js";
-import examples from "../data/examples.js";
 
 export default {
   name: "Login",
 
   created() {
-    examples.users.forEach((element) => {
-      this.users.push(element);
-    });
-    console.log(this.users);
-
     if (this.user) {
       this.$router.push("crm/");
     }
@@ -90,6 +87,7 @@ export default {
 
   data: function() {
     return {
+      image: "../assets/logotp.png",
       msg: "...",
 
       input: {
@@ -132,9 +130,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.bg {
-  background: url("../assets/logotp.png") no-repeat center;
-}
-</style>

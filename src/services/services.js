@@ -7,14 +7,15 @@ export default {
   },
 
   getDateString() {
-    return `${dateString[1]}.${dateString[0]}.${dateString[2]}`;
+
+    return `${dateString[1]}/${dateString[0]}/${dateString[2]}`;
   },
 
   convert(date) {
     console.log(date);
     let result = date.split("-");
 
-    return `${result[2]}.${result[1]}.${result[0]}`;
+    return `${result[2]}/${result[1]}/${result[0]}`;
   },
 
   sorters: {

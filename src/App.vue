@@ -1,60 +1,33 @@
 <template>
   <v-app>
-    <v-system-bar
-  height="80"
-></v-system-bar>
-    <v-app-bar app dark color="primary" v-if="user">
-      <v-container fluid >
+    <v-system-bar v-if="user" color="primaryDark" height="70">
+      <!-- <v-app-bar app dark color="primary" v-if="user"> -->
+      <v-container fluid>
+        <v-row>
+          <v-col class="d-flex align-content-center flex-wrap">
+            <v-tab>
+              <!-- <RouteNav/> -->
+<router-link to="/" class="white--text">
 
-<v-row  >
-
- <v-col class="d-flex align-content-center flex-wrap">
-      <RouteNav/>
-
-<DigitalClock :blink="true" class="ml-1"/>
-</v-col>
-<v-spacer></v-spacer>
-<v-col class="d-flex justify-center align-content-center flex-wrap">
-      <router-link to="/cases" class="white--text">
-        <v-tab>
-          Cases
-        </v-tab>
-      </router-link>
-      <router-link to="/tasks" class="white--text">
-        <v-tab>
-          Tasks
-        </v-tab>
-      </router-link>
-      <router-link to="/perps" class="white--text">
-        <v-tab>
-          Perps
-        </v-tab>
-      </router-link>
-</v-col>
-<v-spacer></v-spacer>
-<v-col >
-      <div class="d-flex text-center">
-        <router-link class="white--text" to="/crm">
-        <v-img
-          alt="Logo"
-          class="shrink mr-2 "
-          contain
-          src="./assets/logo.png"
-          transition="scale-transition"
-          width="40"
-        />
-        </router-link>
-
-        <v-tab>
-          {{user.badge}}: {{user.name}}
-        </v-tab>
-
-      </div>
-</v-col>
-</v-row>
+              <DigitalClock :blink="true" class="ml-2" />
+</router-link>
+            </v-tab>
+          </v-col>
+          <v-spacer></v-spacer>
+          <v-col
+          cols="6"
+            class="d-none d-md-inline-flex justify-center align-content-center flex-wrap "
+          >
+            <RouteNav />
+          </v-col>
+          <v-spacer></v-spacer>
+          <v-col class="d-flex justify-end">
+<User :user="user" />
+          </v-col>
+        </v-row>
       </v-container>
-
-    </v-app-bar>
+    </v-system-bar>
+    <!-- </v-app-bar> -->
 
     <v-main class="fourth">
       <router-view />
@@ -64,24 +37,25 @@
 
 <script>
 import RouteNav from "./components/RouteNav.vue";
+import User from "./components/User.vue";
 import DigitalClock from "vue-digital-clock";
 import examples from "./data/examples.js";
-
 
 export default {
   name: "App",
 
   components: {
     RouteNav,
+    User,
     DigitalClock,
   },
 
   created() {
-    
-      if(!this.user) {
-
+    if (!this.user) {
+      if (this.$route.path != "/") {
         this.$router.push("/");
       }
+    }
 
     examples.criminals.forEach((element) => {
       this.criminals.push(element);
@@ -95,7 +69,6 @@ export default {
     examples.users.forEach((element) => {
       this.users.push(element);
     });
-    
   },
 
   computed: {
@@ -103,8 +76,7 @@ export default {
       return this.$store.getters.user;
     },
 
-
-        criminals() {
+    criminals() {
       return this.$store.getters.criminals;
     },
     tasks() {
@@ -125,10 +97,14 @@ export default {
 </script>
 
 <style>
-
 a {
   text-decoration: none;
 }
-
-
+.fill-width {
+  width: 100%;
+}
+.bgimg {
+  background-repeat: no-repeat;
+  background-position: center;
+}
 </style>

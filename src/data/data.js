@@ -21,7 +21,7 @@ export default {
     id;
     crimeId;
     suspect = true;
-    hasBeenToPrison = undefined;
+    hasBeenToPrison = false;
     note = "";
 
     constructor(id) {
