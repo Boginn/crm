@@ -67,7 +67,7 @@
         :search="search"
         :items-per-page="10"
         item-key="id"
-        class="elevation-6 seventh ma-5 pa-4 fill-width"
+        class="elevation-6 seventh ma-5 pa-4 fill-width font-shadow"
       >
         <template v-slot:item.status="{ item }">
           <v-row class="d-flex justify-center align-center flex-wrap">
@@ -101,13 +101,19 @@ import services from "../services/services.js";
 export default {
   name: "Tasks",
 
+    created() {
+    if (!this.user) {
+      this.$router.push("/");
+    }
+  },
+
   components: {
     Search,
     NavChip,
     Back,
   },
 
-  created() {},
+
 
   computed: {
     id() {
@@ -165,7 +171,7 @@ export default {
     },
 
     draft() {
-      this.blank.push(new data.Task(this.id, services.getDate()));
+      this.blank.push(new data.Task(this.id, services.getDateWithHour()));
       this.expand = true;
     },
     add() {
@@ -173,8 +179,7 @@ export default {
         this.subject.assigned = this.assigned ? this.assigned : this.user.badge;
         this.tasks.push(this.blank[0]);
       }
-      this.blank = [];
-      this.expand = false;
+      this.cancel();
     },
     remove(obj) {
       this.tasks.splice(this.tasks.indexOf(obj), 1);

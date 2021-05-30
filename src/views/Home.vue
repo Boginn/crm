@@ -12,7 +12,7 @@
         :key="option.name"
       >
         <v-card
-          class="pa-2 ma-3 bgimg"
+          class="pa-2 ma-3 font-shadow bgimg"
           :class="option.color"
         >
 
@@ -38,9 +38,18 @@ import data from '../data/data.js'
 export default {
   name: "Home",
 
+  created() {
+    if (!this.user) {
+      this.$router.push("/");
+    }
+  },
+
   components: {},
-  created() {},
+
   computed: {
+    user() {
+      return this.$store.getters.user;
+    },
     options() {
       return data.options;
     }

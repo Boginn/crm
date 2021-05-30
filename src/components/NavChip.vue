@@ -1,7 +1,7 @@
 <template>
   <v-btn
     style="margin-bottom: -35px; text-transform: none;"
-    class="ml-10"
+    class="ml-10 font-shadow"
     :class="option.color"
   >
     <router-link class="white--text" :to="`${path}`">

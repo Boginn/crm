@@ -35,6 +35,9 @@ export default new Vuex.Store({
     taskId(state) {
       return state.tasks.length+1;
     },
+    criminalId(state) {
+      return state.criminals.length+1;
+    },
 
     //
     language() {
@@ -65,6 +68,10 @@ export default new Vuex.Store({
         context.commit("FILE_CRIME", payload);
 
      },
+    addCriminal(context, payload) {
+        context.commit("ADD_CRIMINAL", payload);
+
+     },
     setUser(context, payload) {
         context.commit("SET_USER", payload);
 
@@ -78,6 +85,9 @@ export default new Vuex.Store({
 
     FILE_CRIME(state, payload) {
       state.cases.push(payload);
+    },
+    ADD_CRIMINAL(state, payload) {
+      state.criminals.push(payload);
     },
 
     SET_USER(state, payload) {

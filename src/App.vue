@@ -106,4 +106,7 @@ a {
   background-repeat: no-repeat;
   background-position: center;
 }
+.font-shadow {
+  text-shadow: black 1px 1px;
+}
 </style>

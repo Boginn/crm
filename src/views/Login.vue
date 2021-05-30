@@ -1,9 +1,9 @@
 <template>
   <v-container class="mt-16">
-    <v-row>
-      <v-col>
+    <v-row class="d-flex justify-center">
+      <v-col cols="6">
         <v-card class="pa-10 sixth ">
-          <v-row class="text-center">
+          <v-row class="text-center font-shadow">
             <v-col>
               <h1 class="title">
                 LÖKE
@@ -17,10 +17,11 @@
               </h2>
             </v-col>
           </v-row>
-          <v-form ref="form" v-model="valid" lazy-validation class="bgimg" :style="{ 'background-image': 'url(' +require('@/assets/logotp.png')+ ')'  }">
+
+          <v-form ref="form" v-model="valid" lazy-validation class="bgimg font-shadow" :style="{ 'background-image': 'url(' +require('@/assets/logotp.png')+ ')'  }">
             <v-row>
               <v-spacer></v-spacer>
-              <v-col>
+              <v-col cols="6">
                 <v-text-field
                   filled
                   v-model="input.username"
@@ -34,7 +35,7 @@
             </v-row>
             <v-row>
               <v-spacer></v-spacer>
-              <v-col>
+              <v-col cols="6">
                 <v-text-field
                   filled
                   type="password"
@@ -55,6 +56,7 @@
               </v-col>
             </v-row>
           </v-form>
+
         </v-card>
       </v-col>
     </v-row>

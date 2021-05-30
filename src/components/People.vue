@@ -1,9 +1,10 @@
 <template>
-  <v-row>
-    <v-col :class="[suspected ? 'seventh' : 'fifth']">
+
+  <v-row style="min-height: 500px;">
+    <v-col :class="[suspected ? 'seventh' : 'fifth']" >
       <v-row>
         <v-col>
-          <h2>{{ title }} ({{people.length}})</h2>
+          <h2>{{ title }} ({{ people.length }})</h2>
 
           <v-divider width="200"></v-divider>
         </v-col>
@@ -13,11 +14,27 @@
           <v-icon>mdi-account-plus-outline</v-icon>
         </v-btn>
 
-        <v-btn small outlined v-if="suspected" title="Add from Perps"
+
+
+      <v-menu offset-y >
+        <template v-slot:activator="{ on }">
+        <v-btn v-on="on" small outlined v-if="suspected" title="Add from Perps"
           ><v-icon>
             mdi-account-multiple-plus
           </v-icon></v-btn
         >
+        </template>
+        <v-list class="fourth">
+          <v-list-item v-for="(criminal, index) in criminals" :key="index" class="menu-item">
+              <v-list-item-title  @click="addFromPerps(criminal)">{{ criminal.name }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
+
+
+
+
       </v-row>
 
       <div>
@@ -73,23 +90,57 @@
             </v-col>
           </v-col>
 
-          <v-row>
-            <v-col class="mb-5">
-              <v-btn small outlined @click="add()" title="Ok"
+          <v-row class="">
+            <v-col class="mb-5 d-flex ">
+              <v-row class="ml-3 d-flex align-center flex-wrap ">
+
+              <v-btn class="" small outlined @click="add()" title="Ok"
                 ><v-icon>
                   mdi-check
                 </v-icon></v-btn
               >
-              <v-btn small outlined v-if="suspected" title="Save to Perps"
+              <v-btn
+                small
+                outlined
+                v-if="suspected"
+                @click="addCriminal()"
+                title="Save to Perps"
                 ><v-icon>
                   mdi-account-multiple-plus
                 </v-icon></v-btn
               >
-              <v-btn small outlined @click="cancel()" title="Cancel"
+              <v-btn small outlined @click="cancel()" title="Cancel" class="mr-3"
                 ><v-icon>
                   mdi-cancel
                 </v-icon></v-btn
               >
+<div style="height: 50px;" class="ma-3" v-if="!saved">
+
+</div>
+                  <v-alert
+                  v-if="saved"
+                  class="mt-4 "
+                    border="left"
+                    dense
+                    
+                    dismissible
+                    text
+                    type="success"
+                  >Saved </v-alert>
+
+                                    <v-alert
+                  v-if="error"
+                  class="mt-4 "
+                    border="left"
+                    dense
+                    
+                    dismissible
+                    text
+                    type="warning"
+                  >Unsuccessful</v-alert>
+
+              </v-row>
+
             </v-col>
           </v-row>
         </v-row>
@@ -136,10 +187,6 @@ import services from "../services/services.js";
 export default {
   name: "People",
 
-  created() {
-    this.suspected ? (this.title = "Suspects") : (this.title = "Victims");
-  },
-
   props: {
     people: Array,
     crimeId: Number,
@@ -153,15 +200,23 @@ export default {
     subject() {
       return this.blank.slice().reverse()[0];
     },
+    title() {
+      return this.suspected ? "Suspects" : "Victims";
+    },
+    criminals() {
+      return this.$store.getters.criminals;
+    }
+    
   },
 
   data: () => ({
-    title: "",
     expand: false,
     id: 0,
     isEditing: false,
     blank: [],
     isNew: false,
+    saved: false,
+    error: false,
   }),
 
   methods: {
@@ -175,14 +230,43 @@ export default {
       this.isNew = true;
     },
     add() {
-
-      if(!this.isEmptyObject(this.blank[0]) && this.isNew) {
+      if (!this.isEmptyObject(this.blank[0]) && this.isNew) {
         this.id++;
 
         this.people.push(this.blank[0]);
       }
-      
-      this.blank = [];
+
+      this.cancel();
+    },
+    addCriminal() {
+      if (!this.isEmptyObject(this.blank[0])) {
+        this.blank[0].id = this.$store.getters.criminalId;
+        this.$store.dispatch("addCriminal", this.blank[0]);
+        this.error = false;
+        this.saved = true;
+        setTimeout(() => {
+          this.saved = false;
+          
+        }, 4000);
+      } else {
+                this.saved = false;
+                this.error = true;
+        setTimeout(() => {
+          this.error = false;
+          
+        }, 4000);
+      }
+    },
+    addFromPerps(perp) {
+         let criminal = new data.Criminal(this.id);
+          criminal.name = perp.name;
+          criminal.address = perp.address;
+          criminal.age = perp.age;
+          criminal.phone = perp.phone;
+          criminal.hasBeenToPrison = perp.hasBeenToPrison;
+          criminal.note = perp.note;
+        this.people.push(criminal);
+      this.id++;
       this.expand = false;
     },
     edit(obj) {
@@ -214,8 +298,15 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .v-btn {
   margin-left: 25px;
+  background-color: #074044;
+}
+.menu-item {
+cursor: pointer;
+}
+.menu-item:hover {
+background-color: rgba(240, 248, 255, 0.212);
 }
 </style>

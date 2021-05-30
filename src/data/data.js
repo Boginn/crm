@@ -24,6 +24,19 @@ export default {
     hasBeenToPrison = false;
     note = "";
 
+    constructor(id, crimeId) {
+      super();
+      this.id = id;
+      this.crimeId = crimeId;
+    }
+  },
+
+  Criminal: class extends Person {
+    id;
+    crimeId;
+    hasBeenToPrison = false;
+    note = "";
+
     constructor(id) {
       super();
       this.id = id;
@@ -38,7 +51,30 @@ export default {
     date = undefined;
 
     constructor(id, date) {
-      // super();
+      this.id = id;
+      this.date = date;
+
+    }
+  },
+
+  Crime: class Crime {
+    id;
+    name;
+    address;
+    postcode;
+    crimeType;
+    committed;
+    committedValue;
+    date;
+    dateValue;
+    shortDesc;
+    severity;
+    caseOpen = true;
+    notes = [];
+    victims = [];
+    suspects = [];
+
+    constructor(id, date) {
       this.id = id;
       this.date = date;
 
@@ -96,9 +132,15 @@ export default {
 
   otherOptions: [
     {
-      name: "Add",
+      name: "New Task",
       path: false,
       icon: "mdi-folder",
+      color: "secondary",
+    },
+    {
+      name: "Add Criminal",
+      path: false,
+      icon: "mdi-account-cowboy-hat",
       color: "secondary",
     },
   ],
@@ -106,17 +148,23 @@ export default {
   headers: {
     cases: [
       { text: "Name", value: "name" },
-      { text: "Address", value: "address" },
-      { text: "Committed", value: "committed" },
-      { text: "Added", value: "date" },
+      // { text: "Address", value: "address" },
+      { text: "Committed on", value: "committedValue" },
+      { text: "Filed on", value: "dateValue" },
       { text: "Severity", value: "severity" },
       { text: "Open", value: "caseOpen", sortable: false, align: "center" },
     ],
     tasks: [
-      { text: "Date", value: "date"},
+      { text: "", value: "date"},
       { text: "Name", value: "name", sortable: false },
       { text: "Assigned", value: "assigned", },
       { text: "Completed", value: "status",  align: "center" },
+    ],
+    perps: [
+      { text: "Name", value: "name",  },
+      { text: "Address", value: "address" },
+      { text: "Age", value: "age" },
+      { text: "Phone", value: "phone", sortable: false },
     ],
   },
 

@@ -15,7 +15,7 @@ export default new Vuetify({
       dark: {
         primary: "#babbc3",
         secondary: "#263c57",
-        tertiary: "#597191",
+        tertiary: "#074044",
         fourth: "#061427",
         fifth: "#0c2649",
         sixth: "#111536",

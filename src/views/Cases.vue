@@ -5,15 +5,15 @@
 
       <Search :location="$options.name"/>
 
-      <NavChip :option="option" />
+      <NavChip :option="option" class="mt-3"/>
 
       <v-data-table
         :headers="headers"
         :items="cases"
         :search="search"
-        :items-per-page="5"
+        :items-per-page="10"
         item-key="name"
-        class="elevation-6 fifth ma-5 pa-4 fill-width"
+        class="elevation-6 fifth ma-5 pa-4 mt-8 fill-width  font-shadow"
       >
         <template v-slot:header.caseOpen="{}">
           <v-row class="d-flex justify-center align-center flex-wrap">
@@ -24,16 +24,29 @@
         </template>
 
         <template v-slot:item.name="{ item }">
-          <router-link :to="`${item.id}`" class="table">
+          <router-link :to="`/cases/${item.id}`" class="table">
             <v-icon class="mb-1" small>mdi-arrow-top-left</v-icon>
         {{ item.name }}
           </router-link>
+        </template>
+
+        <template v-slot:item.severity="{ item }">
+          <span class="green--text" v-if="item.severity < 4">{{item.severity}}</span>
+          <span class="yellow--text" v-else-if="item.severity < 7">{{item.severity}}</span>
+          <span class="red--text" v-if="item.severity >= 7">{{item.severity}}</span>
         </template>
 
         <template v-slot:item.caseOpen="{ item }">
           <span class="green--text" v-if="item.caseOpen">Open</span><span class="red--text" v-else>Closed</span>
         </template>
 
+        <template v-slot:item.committedValue="{ item }">
+         {{item.committed}}
+        </template>
+        
+        <template v-slot:item.dateValue="{ item }">
+         {{item.date}}
+        </template>
         
       </v-data-table>
 
@@ -52,15 +65,23 @@ import data from '../data/data.js'
 export default {
   name: "Cases",
 
+    created() {
+    if (!this.user) {
+      this.$router.push("/");
+    }
+  },
+
   components: {
     Search,
     NavChip,
     Back,
   },
 
-  created() {},
 
   computed: {
+        user() {
+      return this.$store.getters.user;
+    },
     search() {
       return this.$store.getters.search;
     },
@@ -94,12 +115,13 @@ export default {
 <style >
 .table {
   font-size: 12pt;
-  color: white;
+  color: #f0c03c !important;
   font-weight: bold;
+  
   
 }
 .table:hover {
-  color: #13184b;
+  color: white !important;
   
 }
 </style>

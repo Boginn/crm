@@ -1,21 +1,17 @@
-let dateString = new Date().toLocaleDateString().split("/");
+// let dateString = new Date().toLocaleDateString().split("/");
 
 export default {
   getDate() {
+    return new Date().toGMTString().substr(0, 17);
+
+  },
+  getDateWithHour() {
     return new Date().toGMTString().substr(0, 25);
 
   },
+  getDateFromString(str) {
+    return new Date(str).toGMTString().substr(0, 17);
 
-  getDateString() {
-
-    return `${dateString[1]}/${dateString[0]}/${dateString[2]}`;
-  },
-
-  convert(date) {
-    console.log(date);
-    let result = date.split("-");
-
-    return `${result[2]}/${result[1]}/${result[0]}`;
   },
 
 
