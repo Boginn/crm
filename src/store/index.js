@@ -1,23 +1,25 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    search: '',
+    search: "",
 
     user: undefined,
 
     cases: [],
     criminals: [],
-
     tasks: [],
-    
-
     roster: [],
-
     reports: [],
+
+    caseId: 1,
+    taskId: 1,
+    criminalId: 1,
+    reportId: 1,
+    userId: 1,
   },
 
   getters: {
@@ -29,20 +31,40 @@ export default new Vuex.Store({
       return state.search;
     },
 
+    getCrimeById: (state) => (id) => {
+      return state.cases[id - 1];
+    },
+    
+    getCrimeByName: (state) => (name) => {
+      for (let i = 0; i < state.cases.length; i++) {
+        if (state.cases[i].name == name) {
+          return state.cases[i];
+        }
+      }
+
+    },
+
+    //id
     caseId(state) {
-      return state.cases.length+1;
+      return state.caseId;
     },
     taskId(state) {
-      return state.tasks.length+1;
+      return state.taskId;
     },
     criminalId(state) {
-      return state.criminals.length+1;
+      return state.criminalId;
+    },
+    reportId(state) {
+      return state.reportId;
+    },
+    userId(state) {
+      return state.userId;
     },
 
     //
     language() {
       // there is currently only english available
-      return 'English';
+      return ["English"];
     },
 
     //arrays
@@ -65,40 +87,87 @@ export default new Vuex.Store({
 
   actions: {
     fileCrime(context, payload) {
-        context.commit("FILE_CRIME", payload);
-
-     },
+      context.commit("FILE_CRIME", payload);
+    },
+    fileReport(context, payload) {
+      context.commit("FILE_REPORT", payload);
+    },
     addCriminal(context, payload) {
-        context.commit("ADD_CRIMINAL", payload);
-
-     },
+      context.commit("ADD_CRIMINAL", payload);
+    },
+    addTask(context, payload) {
+      context.commit("ADD_TASK", payload);
+    },
     setUser(context, payload) {
-        context.commit("SET_USER", payload);
+      context.commit("SET_USER", payload);
+    },
 
-     },
+    //id
+    setCaseId(context, payload) {
+      context.commit("SET_CASE_ID", payload);
+    },
+    setTaskId(context, payload) {
+      context.commit("SET_TASK_ID", payload);
+    },
+    setCriminalId(context, payload) {
+      context.commit("SET_CRIMINAL_ID", payload);
+    },
+    setReportId(context, payload) {
+      context.commit("SET_REPORT_ID", payload);
+    },
+    setUserId(context, payload) {
+      context.commit("SET_USER_ID", payload);
+    },
   },
 
   mutations: {
+    //user functions
     SEARCH(state, payload) {
       state.search = payload;
     },
+    LOGOUT(state) {
+      state.user = undefined;
+    },
 
     FILE_CRIME(state, payload) {
+      state.crimeId++;
       state.cases.push(payload);
     },
+
+    FILE_REPORT(state, payload) {
+      state.reportId++;
+      state.reports.push(payload);
+    },
     ADD_CRIMINAL(state, payload) {
+      state.criminalId++;
       state.criminals.push(payload);
+    },
+    ADD_TASK(state, payload) {
+      state.taskId++;
+      state.tasks.push(payload);
     },
 
     SET_USER(state, payload) {
       state.user = payload;
     },
 
-    LOGOUT(state) {
-      state.user = undefined;
+    //id
+    SET_CASE_ID(state, payload) {
+      state.caseId = payload;
+    },
+    SET_TASK_ID(state, payload) {
+      state.taskId = payload;
+    },
+    SET_CRIMINAL_ID(state, payload) {
+      state.criminalId = payload;
+    },
+    SET_REPORT_ID(state, payload) {
+      state.reportId = payload;
+    },
+    SET_USER_ID(state, payload) {
+      state.userId = payload;
     },
   },
-  
-  modules: {
-  }
-})
+
+  modules: {},
+});

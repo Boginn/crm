@@ -43,6 +43,20 @@ export default {
     }
   },
 
+  Report: class Report {
+  
+    id;
+    crimeId;
+    badge;
+    body;
+  
+    constructor(id, crimeId) {
+      this.id = id;
+      this.crimeId = crimeId;
+
+    }
+  },
+
   Task: class Task {
     id;
     name = '';

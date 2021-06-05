@@ -79,7 +79,7 @@ export default {
     rules() {
       return services.rules;
     },
-    users() {
+    roster() {
       return this.$store.getters.roster;
     },
     user() {
@@ -107,7 +107,7 @@ export default {
       if (this.$refs.form.validate()) {
         let user;
 
-        this.users.forEach((u) => {
+        this.roster.forEach((u) => {
           if (u.username == this.input.username) {
             user = u;
           } else {

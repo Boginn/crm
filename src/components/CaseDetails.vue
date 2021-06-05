@@ -57,6 +57,52 @@
                   ><span v-else class="red--text">Closed</span>
                 </h3>
               </v-card-text>
+              <v-card-text class=" pt-1">
+                <h3>
+                  Reports:
+                </h3>
+
+                <v-dialog v-model="dialog" width="500">
+                  <template v-slot:activator="{ on }">
+                    <span
+                      v-on="on"
+                      v-for="(report, index) in reports"
+                      @click="dialogReport = report"
+                      :key="report.id"
+                      class="link"
+                      :class="[user.badge == report.badge ? 'lime--text' : '']"
+                      >{{ report.badge }}<span v-if="index != 0">,&nbsp;</span>
+                    </span>
+                  </template>
+
+                  <template v-if="dialogReport">
+                  <v-card>
+                    <v-card-title> {{dialogReport.badge}}</v-card-title>
+
+                    <v-card-text>
+                      {{dialogReport.body}}
+                    </v-card-text>
+
+                    <v-divider></v-divider>
+
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="primary" text @click="dialog = false">
+                        Close
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                  </template>
+
+
+
+                </v-dialog>
+              </v-card-text>
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col>
               <v-card-text class="fifth pt-6">
                 <sup style="color: #babbc3" class="float-left">Description</sup>
 
@@ -69,7 +115,9 @@
             <v-col cols="12" xl="6" lg="6" md="6" sm="12" xs="12">
               <div class="secondary pt-3 ">
                 <v-card-title>
-                  <sup style="color: #babbc3">Victims</sup></v-card-title
+                  <sup style="color: #babbc3" class=""
+                    >Victims</sup
+                  ></v-card-title
                 >
                 <v-card-text v-for="victim in crime.victims" :key="victim.id">
                   <div>
@@ -91,107 +139,37 @@
             </v-col>
             <v-col cols="12" xl="6" lg="6" md="6" sm="12" xs="12">
               <div class="sixth pt-3">
+                <v-card-title style="margin-bottom: -20px">
+                  <sup style="color: #babbc3;">Suspects</sup>
 
-
-
-                    <v-dialog v-model="expand" width="500">
-
-      <template v-slot:activator="{ on }">
-        <span @click="draft()" v-on="on">
-          <NavChip :option="option" />
-        </span>
-      </template>
-            <v-card class="sixth">
-        <v-card-title class="secondary">
-          Add Criminal
-        </v-card-title>
-
-       <v-form ref="form" v-if="subject">
-        <v-col cols="12">
-            <v-text-field
-              filled
-              dense
-              v-model="subject.name"
-              :rules="rules.default"
-              label="Name"
-              required
-            ></v-text-field>
-
-            <v-text-field
-              filled
-              dense
-              v-model="subject.address"
-              :rules="rules.default"
-              label="Address"
-            ></v-text-field>
-
-            <v-text-field
-              filled
-              dense
-              v-model="subject.age"
-              :rules="rules.default"
-              label="Age"
-            ></v-text-field>
-
-            <v-text-field
-              filled
-              dense
-              v-model="subject.phone"
-              :rules="rules.default"
-              label="Phone"
-            ></v-text-field>
-
-                            <v-checkbox
-                  dense
-                  v-model="subject.hasBeenToPrison"
-                  label="Has this person been in prison?"
-                ></v-checkbox>
-
-                <v-text-field
-                  v-model="subject.note"
-                  :rules="rules.default"
-                  label="Note"
-                ></v-text-field>
-
-                  <v-card-actions>
-          <v-btn small outlined @click="validate()" title="Ok"
-            ><v-icon>
-              mdi-check
-            </v-icon></v-btn
-          >
-          <v-btn small outlined @click="cancel()" title="Cancel"
-            ><v-icon>
-              mdi-cancel
-            </v-icon></v-btn
-          >
-                  </v-card-actions>
-        </v-col>
-      </v-form>
-
-
-          <v-spacer></v-spacer>
- 
-      </v-card>
-    </v-dialog>
-
-      <v-menu offset-y >
-        <template v-slot:activator="{ on }">
-        <v-btn v-on="on" small outlined title="Add from Perps"
-          ><v-icon>
-            mdi-account-multiple-plus
-          </v-icon></v-btn
-        >
-        </template>
-        <v-list class="fourth">
-          <v-list-item v-for="(criminal, index) in criminals" :key="index" class="menu-item">
-              <v-list-item-title  @click="addFromPerps(criminal)">{{ criminal.name }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-
-                <v-card-title>
-                  <sup style="color: #babbc3">Suspects</sup></v-card-title
+                  <v-menu offset-y>
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        v-on="on"
+                        x-small
+                        outlined
+                        title="Add from Perps"
+                        class="ml-1"
+                        style="margin-top: -12px"
+                        ><v-icon>
+                          mdi-account-multiple-plus
+                        </v-icon></v-btn
+                      >
+                    </template>
+                    <v-list class="fourth">
+                      <v-list-item
+                        v-for="(criminal, index) in criminals"
+                        :key="index"
+                        class="menu-item"
+                      >
+                        <v-list-item-title @click="addFromPerps(criminal)">{{
+                          criminal.name
+                        }}</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu></v-card-title
                 >
+
                 <v-card-text
                   v-for="suspect in crime.suspects"
                   :key="suspect.id"
@@ -218,9 +196,9 @@
 
                       <div>
                         Ever jailed:
-                        <span class="green--text" v-if="suspect.hasBeenToPrison"
+                        <span class="red--text" v-if="suspect.hasBeenToPrison"
                           >Yes</span
-                        ><span class="red--text" v-else>No</span>
+                        ><span class="green--text" v-else>No</span>
                       </div>
                     </v-col>
 
@@ -240,50 +218,59 @@
             </v-col>
           </v-row>
 
-          <v-row>
-            <v-dialog v-model="expandNote" width="500" v-if="crime.caseOpen">
-              <template v-slot:activator="{ on }">
-                <v-col>
-
-                <v-btn v-on="on" small block outlined class="ml-1" title="Make a Note"
-                  >Comment<v-icon small>
-                    mdi-comment
-                  </v-icon></v-btn
-                >
-                </v-col>
-              </template>
-              <v-card class="sixth">
-
-
-                <v-form ref="form">
-                  <v-col cols="12">
-                    <v-text-field
-                      filled
-                      dense
-                      v-model="comment"
-                      :rules="rules.default"
-                      label="Comment"
-                      required
-                    ></v-text-field>
-
-                    <v-card-actions>
-                      <v-btn small outlined @click="validateNote()" title="Ok"
-                        ><v-icon>
-                          mdi-check
-                        </v-icon></v-btn
-                      >
-                      <v-btn small outlined @click="cancelNote()" title="Cancel"
-                        ><v-icon>
-                          mdi-cancel
-                        </v-icon></v-btn
-                      >
-                    </v-card-actions>
+          <v-row class="d-flex justify-center">
+            <v-col cols="6">
+              <v-dialog v-model="expandNote" width="500" v-if="crime.caseOpen">
+                <template v-slot:activator="{ on }">
+                  <v-col>
+                    <v-btn
+                      v-on="on"
+                      small
+                      block
+                      text
+                      class="ma-0"
+                      title="Make a Note"
+                      > <span v-if="!crime.notes.length">be the first to comment</span> <span v-else>comment</span><v-icon small>
+                        mdi-comment
+                      </v-icon></v-btn
+                    >
                   </v-col>
-                </v-form>
+                </template>
+                <v-card class="sixth">
+                  <v-form ref="form">
+                    <v-col cols="12">
+                      <v-text-field
+                        filled
+                        dense
+                        v-model="comment"
+                        :rules="rules.default"
+                        label="Comment"
+                        required
+                      ></v-text-field>
 
-                <v-spacer></v-spacer>
-              </v-card>
-            </v-dialog>
+                      <v-card-actions>
+                        <v-btn small outlined @click="validateNote()" title="Ok"
+                          ><v-icon>
+                            mdi-check
+                          </v-icon></v-btn
+                        >
+                        <v-btn
+                          small
+                          outlined
+                          @click="cancelNote()"
+                          title="Cancel"
+                          ><v-icon>
+                            mdi-cancel
+                          </v-icon></v-btn
+                        >
+                      </v-card-actions>
+                    </v-col>
+                  </v-form>
+
+                  <v-spacer></v-spacer>
+                </v-card>
+              </v-dialog>
+            </v-col>
           </v-row>
 
           <v-row>
@@ -293,11 +280,13 @@
                 v-for="note in crime.notes.slice().reverse()"
                 :key="note.id"
               >
-               <sup style="font-size: 8pt">{{ note.date }}</sup>
+                <sup style="font-size: 8pt">{{ note.date }}</sup>
 
-
-                        <div><i class="yellow--text">{{note.user}}</i>: {{ note.body }}</div>
-                        <v-divider></v-divider>
+                <div>
+                  <i class="yellow--text">{{ note.user }}</i
+                  >: {{ note.body }}
+                </div>
+                <v-divider></v-divider>
               </v-card-text>
             </v-col>
           </v-row>
@@ -310,14 +299,13 @@
 
 <script>
 import Back from "./Back.vue";
-import NavChip from "./NavChip.vue";
 import services from "../services/services.js";
 import data from "../data/data.js";
 
 export default {
   name: "CaseDetails",
 
-    created() {
+  created() {
     if (!this.user) {
       this.$router.push("/");
     }
@@ -325,18 +313,19 @@ export default {
 
   components: {
     Back,
-    NavChip,
   },
 
   props: {},
 
   data: function() {
     return {
+      dialog: false,
       expand: false,
       expandNote: false,
       id: 0,
       blank: [],
-      comment: '',
+      comment: "",
+      dialogReport: undefined,
     };
   },
 
@@ -344,29 +333,34 @@ export default {
     user() {
       return this.$store.getters.user;
     },
+
     crime() {
-      return this.$store.getters.cases[this.$route.params.id - 1];
+      return this.$store.getters.getCrimeById(this.$route.params.id);
     },
-        option() {
+
+    option() {
       return data.otherOptions[1];
-    },
-    subject() {
-      return this.blank[0];
     },
     rules() {
       return services.rules;
     },
+
     criminals() {
       return this.$store.getters.criminals;
-    }
-    // comment() {
-    //   return this.blank.slice().reverse()[0];
-    // },
+    },
+    subject() {
+      return this.blank[0];
+    },
+    reports() {
+      return this.$store.getters.reports.filter(
+        (report) => report.crimeId == this.crime.id
+      );
+    },
   },
 
   methods: {
     // ADD CRIMINAL
-        validate() {
+    validate() {
       if (this.$refs.form.validate()) {
         this.add();
       }
@@ -386,19 +380,17 @@ export default {
       this.blank = [];
       this.expand = false;
     },
-        addFromPerps(perp) {
-      
-         
-          let criminal = new data.Criminal(this.crime.suspects.length+1);
-          criminal.crimeId = this.crime.id;
-          criminal.name = perp.name;
-          criminal.address = perp.address;
-          criminal.age = perp.age;
-          criminal.phone = perp.phone;
-          criminal.hasBeenToPrison = perp.hasBeenToPrison;
-          criminal.note = perp.note;
-        this.crime.suspects.push(criminal)
-    
+    addFromPerps(perp) {
+      let criminal = new data.Criminal(this.crime.suspects.length + 1);
+      criminal.crimeId = this.crime.id;
+      criminal.name = perp.name;
+      criminal.address = perp.address;
+      criminal.age = perp.age;
+      criminal.phone = perp.phone;
+      criminal.hasBeenToPrison = perp.hasBeenToPrison;
+      criminal.note = perp.note;
+      this.crime.suspects.push(criminal);
+
       this.expand = false;
     },
     // NOTE COMMENT
@@ -414,26 +406,28 @@ export default {
         date: services.getDateWithHour(),
         user: this.user.username,
       });
-        this.crime.notes.push(note);
-
+      this.crime.notes.push(note);
 
       this.cancelNote();
     },
     cancelNote() {
-      this.comment = '';
+      this.comment = "";
       this.blank = [];
       this.expandNote = false;
     },
   },
-
 };
 </script>
 
 <style scoped>
-.menu-item {
-cursor: pointer;
+.menu-item,
+.link {
+  cursor: pointer;
 }
 .menu-item:hover {
-background-color: rgba(240, 248, 255, 0.212);
+  background-color: rgba(240, 248, 255, 0.212);
+}
+.link:hover {
+  color: #f0c03c !important;
 }
 </style>

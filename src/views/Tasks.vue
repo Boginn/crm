@@ -13,6 +13,8 @@
           <NavChip :option="option" />
         </span>
       </template>
+
+      
             <v-card class="seventh">
         <v-card-title class="secondary">
           Add Task
@@ -69,7 +71,10 @@
         item-key="id"
         class="elevation-6 seventh ma-5 pa-4 fill-width font-shadow"
       >
+
+   <!-- eslint-disable-next-line -->
         <template v-slot:item.status="{ item }">
+
           <v-row class="d-flex justify-center align-center flex-wrap">
             <v-checkbox
               v-if="user.badge == item.assigned || user.admin"
@@ -80,7 +85,10 @@
             ><span class="red--text" v-else>No</span>
           </v-row>
         </template>
+        
+           <!-- eslint-disable-next-line -->
         <template v-slot:item.assigned="{ item }">
+
         <span class="yellow--text" v-if="user.badge == item.assigned">  {{item.assigned}}</span>
         <span v-else>  {{item.assigned}}</span>
         </template>
@@ -129,7 +137,7 @@ export default {
       return this.$store.getters.search;
     },
     tasks() {
-      return this.$store.getters.tasks;
+      return this.$store.getters.tasks.slice().reverse();
     },
     headers() {
       return data.headers.tasks;
@@ -137,9 +145,7 @@ export default {
     option() {
       return data.otherOptions[0];
     },
-    subject() {
-      return this.blank[0];
-    },
+
     rules() {
       return services.rules;
     },
@@ -159,7 +165,7 @@ export default {
       expand: false,
 
       isEditing: false,
-      blank: [],
+      subject: undefined,
     };
   },
 
@@ -171,13 +177,15 @@ export default {
     },
 
     draft() {
-      this.blank.push(new data.Task(this.id, services.getDateWithHour()));
+      
+      this.subject = new data.Task(this.id, services.getDateWithHour());
       this.expand = true;
     },
     add() {
       if (this.subject) {
         this.subject.assigned = this.assigned ? this.assigned : this.user.badge;
-        this.tasks.push(this.blank[0]);
+        this.$store.dispatch('addTask', this.subject);
+        // this.tasks.push(this.blank[0]);
       }
       this.cancel();
     },
@@ -186,7 +194,7 @@ export default {
       this.expand = false;
     },
     cancel() {
-      this.blank = [];
+   
       this.expand = false;
     },
   },

@@ -4,16 +4,16 @@ import Vuetify from 'vuetify/lib/framework';
 Vue.use(Vuetify);
 
 export default new Vuetify({
-  defaultAssets: {
-    font: {
-      family: 'Poppins'
-    },
-  },
+  // defaultAssets: {
+  //   font: {
+  //     family: 'Poppins'
+  //   },
+  // },
   theme: {
     dark: true,
     themes: {
       dark: {
-        primary: "#babbc3",
+        primary: "#06214A",
         secondary: "#263c57",
         tertiary: "#074044",
         fourth: "#061427",

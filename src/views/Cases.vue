@@ -15,6 +15,7 @@
         item-key="name"
         class="elevation-6 fifth ma-5 pa-4 mt-8 fill-width  font-shadow"
       >
+         <!-- eslint-disable-next-line -->
         <template v-slot:header.caseOpen="{}">
           <v-row class="d-flex justify-center align-center flex-wrap">
 
@@ -22,28 +23,28 @@
           <v-checkbox v-model="showOpen"  class="ml-1 shrink"></v-checkbox>
           </v-row>
         </template>
-
+   <!-- eslint-disable-next-line -->
         <template v-slot:item.name="{ item }">
           <router-link :to="`/cases/${item.id}`" class="table">
             <v-icon class="mb-1" small>mdi-arrow-top-left</v-icon>
         {{ item.name }}
           </router-link>
         </template>
-
+   <!-- eslint-disable-next-line -->
         <template v-slot:item.severity="{ item }">
           <span class="green--text" v-if="item.severity < 4">{{item.severity}}</span>
           <span class="yellow--text" v-else-if="item.severity < 7">{{item.severity}}</span>
           <span class="red--text" v-if="item.severity >= 7">{{item.severity}}</span>
         </template>
-
+   <!-- eslint-disable-next-line -->
         <template v-slot:item.caseOpen="{ item }">
           <span class="green--text" v-if="item.caseOpen">Open</span><span class="red--text" v-else>Closed</span>
         </template>
-
+   <!-- eslint-disable-next-line -->
         <template v-slot:item.committedValue="{ item }">
          {{item.committed}}
         </template>
-        
+           <!-- eslint-disable-next-line -->
         <template v-slot:item.dateValue="{ item }">
          {{item.date}}
         </template>

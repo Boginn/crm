@@ -5,7 +5,7 @@ import services from '../services/services.js'
 
 export default {
 
-crimes: [
+cases: [
   {
     id: 1,
     name: 'Murder in town',
@@ -208,7 +208,7 @@ tasks: [
   },
 ],
 
-users: [
+roster: [
   {
     id: 1,
     username: 'ibbi',
@@ -254,6 +254,45 @@ users: [
     admin: false,
   },
 
+],
+
+reports: [
+  {
+
+    id: 1,
+    crimeId: 3,
+    badge: 'REK10',
+    body: 'Elsku besta lambið kvaddi í morgun',
+  },
+
+  {
+
+    id: 2,
+    crimeId: 2,
+    badge: 'REK12',
+    body: 'Nú meira ránið hm',
+  },
+  {
+
+    id: 3,
+    crimeId: 1,
+    badge: 'REK13',
+    body: 'Sannkallað morð',
+  },
+  {
+
+    id: 4,
+    crimeId: 3,
+    badge: 'REK12',
+    body: 'Hvíl í friði',
+  },
+  {
+
+    id: 5,
+    crimeId: 3,
+    badge: 'REK69',
+    body: ':(',
+  },
 ],
 
 }

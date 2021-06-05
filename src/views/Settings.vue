@@ -5,13 +5,23 @@
       class="d-flex justify-center flex-wrap-reverse align-content-center mt-6"
     >
       <v-col xl="10" lg="10" md="10" sm="10" xs="10">
-        <v-row class="tertiary mb-1">
+        <v-row class="seventh mb-1">
+ <v-icon small class="ml-3 mr-3">mdi-web</v-icon>
+                <v-select
+          :items="language"
+          
+          :label="language[0]"
+          :placeholder="language[0]"
+        >
+        </v-select>
+        </v-row>
+        <v-row >
           <v-icon small class="ml-3">mdi-account</v-icon>
           <v-col>
             <h4 style="color: #babbc3;">
-              Username: <i> {{ user.username }}</i>
+              Logged in as<i> {{ user.username }}</i>
             </h4>
-            <v-divider></v-divider>
+            <v-divider class="vuegrey"></v-divider>
           </v-col>
         </v-row>
 
@@ -20,7 +30,7 @@
           <v-col>
             <v-text-field
               v-model="name"
-              :label="'Change name'"
+              :label="'Change display name'"
               :placeholder="user.name"
             >
             </v-text-field>
@@ -100,18 +110,16 @@
           </v-col>
         </v-row>
 
-        <v-select
-          :items="items"
-          prepend-icon="mdi-web"
-          label="Language"
-          :placeholder="language"
-        >
-        </v-select>
+<v-row>
+<v-col>
+
         <router-link :to="'/logout/'" class="white--text">
-          <v-btn outlined block class="secondary ma-0"
+          <v-btn outlined block class="primary ma-0"
             ><v-icon>mdi-logout</v-icon> Logout</v-btn
           >
         </router-link>
+</v-col>
+</v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -132,9 +140,6 @@ export default {
   computed: {
     user() {
       return this.$store.getters.user;
-    },
-    items() {
-      return ["English"];
     },
     language() {
       //

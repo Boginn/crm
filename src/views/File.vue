@@ -82,7 +82,7 @@
 
               <v-textarea
                 filled
-                placeholder="Description"
+                auto-grow
                 v-model="shortDesc"
                 :rules="rules.description"
                 label="Description"

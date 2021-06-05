@@ -56,18 +56,35 @@ export default {
       }
     }
 
+
+//inject examples
+this.$store.dispatch('setCaseId', examples.cases.length+1)
+this.$store.dispatch('setTaskId', examples.tasks.length+1)
+
+this.$store.dispatch('setCriminalId', examples.criminals.length+1)
+    this.$store.dispatch('setReportId', examples.reports.length+1)
+    this.$store.dispatch('setUserId', examples.roster.length+1)
+
+      examples.cases.forEach((element) => {
+        this.cases.push(element);
+      });
+      examples.tasks.forEach((element) => {
+        this.tasks.push(element);
+      });
     examples.criminals.forEach((element) => {
       this.criminals.push(element);
     });
-    examples.tasks.forEach((element) => {
-      this.tasks.push(element);
+    examples.reports.forEach((element) => {
+      this.reports.push(element);
     });
-    examples.crimes.forEach((element) => {
-      this.cases.push(element);
+
+    examples.roster.forEach((element) => {
+      this.roster.push(element);
     });
-    examples.users.forEach((element) => {
-      this.users.push(element);
-    });
+
+
+
+
   },
 
   computed: {
@@ -75,16 +92,19 @@ export default {
       return this.$store.getters.user;
     },
 
+    cases() {
+      return this.$store.getters.cases;
+    },
     criminals() {
       return this.$store.getters.criminals;
     },
     tasks() {
       return this.$store.getters.tasks;
     },
-    cases() {
-      return this.$store.getters.cases;
+    reports() {
+      return this.$store.getters.reports;
     },
-    users() {
+    roster() {
       return this.$store.getters.roster;
     },
   },
