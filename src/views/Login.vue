@@ -1,7 +1,7 @@
 <template>
   <v-container class="mt-16">
     <v-row class="d-flex justify-center">
-      <v-col cols="6">
+      <v-col cols="12" sm="10" md="8" lg="8" xl="8">
         <v-card class="pa-10 sixth ">
           <v-row class="text-center font-shadow">
             <v-col>
@@ -21,7 +21,7 @@
           <v-form ref="form" v-model="valid" lazy-validation class="bgimg font-shadow" :style="{ 'background-image': 'url(' +require('@/assets/logotp.png')+ ')'  }">
             <v-row>
               <v-spacer></v-spacer>
-              <v-col cols="6">
+              <v-col cols="12" sm="10" md="10" lg="8" xl="8">
                 <v-text-field
                   filled
                   v-model="input.username"
@@ -35,7 +35,7 @@
             </v-row>
             <v-row>
               <v-spacer></v-spacer>
-              <v-col cols="6">
+              <v-col cols="12" sm="10" md="10" lg="8" xl="8">
                 <v-text-field
                   filled
                   type="password"

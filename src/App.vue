@@ -95,7 +95,6 @@ if(!this.init) {
 
       this.$store.dispatch("setCaseId", examples.cases.length + 1);
       this.$store.dispatch("setTaskId", examples.tasks.length + 1);
-
       this.$store.dispatch("setCriminalId", examples.criminals.length + 1);
       this.$store.dispatch("setReportId", examples.reports.length + 1);
       this.$store.dispatch("setUserId", examples.roster.length + 1);
@@ -112,7 +111,6 @@ if(!this.init) {
       examples.reports.forEach((element) => {
         this.reports.push(element);
       });
-
       examples.roster.forEach((element) => {
         this.roster.push(element);
       });
