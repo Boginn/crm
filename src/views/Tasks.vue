@@ -26,13 +26,13 @@
                 required
               ></v-text-field>
               <v-select
-                :placeholder="user.badge"
+              v-if="user.delegate"
+                placeholder="Assign to"
                 filled
                 dense
-                :item-value="user.badge"
+                
                 v-model="assigned"
                 :items="badges"
-                required
               >
               </v-select>
               <v-divider></v-divider>
@@ -75,7 +75,7 @@
         <template v-slot:item.status="{ item }">
           <v-row class="d-flex justify-center align-center flex-wrap">
             <v-checkbox
-              v-if="user.badge == item.assigned || user.delegate"
+              v-if="user.badge == item.assigned || user.admin"
               v-model="item.status"
               class="ml-1 shrink"
             ></v-checkbox>
@@ -86,10 +86,22 @@
 
         <!-- eslint-disable-next-line -->
         <template v-slot:item.assigned="{ item }">
+           <v-select v-if="user.delegate"
+                  class="mr-3"
+                  dense
+                  v-model="item.assigned"
+                  :items="badges"
+                  
+                  
+              
+                ></v-select>
+                <span v-else>
+
           <span class="yellow--text" v-if="user.badge == item.assigned">
             {{ item.assigned }}</span
           >
           <span v-else> {{ item.assigned }}</span>
+                </span>
         </template>
       </v-data-table>
     </v-row>
@@ -193,9 +205,9 @@ export default {
     },
     add() {
       if (this.subject) {
-        this.subject.assigned = this.assigned ? this.assigned : this.user.badge;
+        // this.subject.assigned = this.assigned ? this.assigned : this.user.badge;
         this.$store.dispatch("addTask", this.subject);
-        // this.tasks.push(this.blank[0]);
+        
       }
       this.cancel();
     },
