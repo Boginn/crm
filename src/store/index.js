@@ -38,23 +38,20 @@ export default new Vuex.Store({
       let takenBadges = [];
       let badges = [];
 
-      for (let i = 1; i <=100; i++) {
+      for (let i = 1; i <= 100; i++) {
         badges.push(i);
-              }
+      }
 
-      state.roster.forEach(element => {
+      state.roster.forEach((element) => {
         toSplit.push(element.badge);
       });
 
-      toSplit.forEach(element => {
-        takenBadges.push(parseInt(element.split('REK')[1]))
-               
+      toSplit.forEach((element) => {
+        takenBadges.push(parseInt(element.split("REK")[1]));
       });
 
-      
-      badges = badges.filter(badge => !takenBadges.includes(badge));
-      console.log(badges)
-      
+      badges = badges.filter((badge) => !takenBadges.includes(badge));
+
       return badges;
     },
     //

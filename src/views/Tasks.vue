@@ -26,11 +26,10 @@
                 required
               ></v-text-field>
               <v-select
-              v-if="user.delegate"
+                v-if="user.delegate"
                 placeholder="Assign to"
                 filled
                 dense
-                
                 v-model="assigned"
                 :items="badges"
               >
@@ -56,6 +55,7 @@
       </v-dialog>
 
       <v-data-table
+      
         :headers="headers"
         :items="tasks"
         :search="search"
@@ -65,12 +65,46 @@
       >
         <!-- eslint-disable-next-line -->
         <template v-slot:header.status="{}">
-           <v-row class="d-flex justify-center align-center flex-wrap" style="margin-bottom: -25px;">
-    Include Completed
-          <v-checkbox v-model="showOpen"  class="ml-1 shrink"></v-checkbox>
+          <v-row
+            class="d-flex justify-center align-center flex-wrap"
+            style="margin-bottom: -25px;"
+          >
+            Include Completed
+            <v-checkbox v-model="showOpen" class="ml-1 shrink"></v-checkbox>
           </v-row>
-</template
->
+        </template>
+
+        <!-- eslint-disable-next-line -->
+        <template v-slot:item.name="{ item }">
+          <v-dialog v-model="dialog" width="500" :retain-focus="false">
+            <template v-slot:activator="{ on }">
+              <span v-on="on" @click="dialogTask = item" class="table">{{ item.name.substring(0, 90)}}
+
+<span v-if="item.name.length>=90">...</span>
+
+              </span>
+            </template>
+
+            <template v-if="dialogTask">
+              <v-card class="tertiary">
+                <v-card-title> {{ dialogTask.assigned }}</v-card-title>
+
+                <v-card-text>
+                  {{ dialogTask.name }}
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-actions class="d-flex justify-center">
+                  <v-btn color="vuegrey" text @click="dialog = false">
+                    Close
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </template>
+          </v-dialog>
+        </template>
+
         <!-- eslint-disable-next-line -->
         <template v-slot:item.status="{ item }">
           <v-row class="d-flex justify-center align-center flex-wrap">
@@ -86,22 +120,20 @@
 
         <!-- eslint-disable-next-line -->
         <template v-slot:item.assigned="{ item }">
-           <v-select v-if="user.delegate"
-                  class="mr-3"
-                  dense
-                  v-model="item.assigned"
-                  :items="badges"
-                  
-                  
-              
-                ></v-select>
-                <span v-else>
-
-          <span class="yellow--text" v-if="user.badge == item.assigned">
-            {{ item.assigned }}</span
-          >
-          <span v-else> {{ item.assigned }}</span>
-                </span>
+          <v-select
+            v-if="user.delegate"
+            color="tertiary"
+            class="mr-3 "
+            dense
+            v-model="item.assigned"
+            :items="badges"
+          ></v-select>
+          <span v-else>
+            <span class="yellow--text" v-if="user.badge == item.assigned">
+              {{ item.assigned }}</span
+            >
+            <span v-else> {{ item.assigned }}</span>
+          </span>
         </template>
       </v-data-table>
     </v-row>
@@ -146,10 +178,11 @@ export default {
       return this.$store.getters.search;
     },
     tasks() {
-            if (!this.showOpen) {
-        return this.$store.getters.tasks.slice().reverse().filter(
-          (task) => task.status == false
-        );
+      if (!this.showOpen) {
+        return this.$store.getters.tasks
+          .slice()
+          .reverse()
+          .filter((task) => task.status == false);
       } else {
         return this.$store.getters.tasks.slice().reverse();
       }
@@ -162,9 +195,9 @@ export default {
       data.dialogRoutes.forEach((element) => {
         if (element.name == "New Task") {
           option = element;
-          }
+        }
       });
-          return option;
+      return option;
     },
 
     rules() {
@@ -183,12 +216,13 @@ export default {
   data: function() {
     return {
       assigned: undefined,
+      dialog: false,
       expand: false,
       showOpen: true,
 
+      dialogTask: undefined,
       isEditing: false,
       subject: undefined,
-      
     };
   },
 
@@ -209,12 +243,10 @@ export default {
     },
     add() {
       if (this.subject) {
-        if(this.user.delegate) {
-
-          this.subject.assigned = this.assigned ? this.assigned : '';
+        if (this.user.delegate) {
+          this.subject.assigned = this.assigned ? this.assigned : "";
         }
         this.$store.dispatch("addTask", this.subject);
-        
       }
       this.cancel();
     },
@@ -226,3 +258,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.table {
+  cursor: pointer;
+  color: #f0c03c !important;
+  font-weight: bold;
+}
+.table:hover {
+  color: white !important;
+}
+</style>

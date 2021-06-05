@@ -8,7 +8,7 @@ export default {
 cases: [
   {
     id: 1,
-    name: 'Murder in town',
+    name: `Murder in town - ${services.getDate()} - Murder Road 3`,
     address: 'Murder Road 3',
     postcode: '111',
     committed: services.getDate(),
@@ -64,8 +64,8 @@ cases: [
   },
   {
     id: 2,
-    name: 'Robbery in school',
-    address: 'School Road 3',
+    name: `Robbery in school - ${services.getDate()} - School Road 7`,
+    address: 'School Road 7',
     postcode: '111',
     committed: services.getDate(),
     committedValue: 1200000796000,
@@ -103,8 +103,8 @@ cases: [
   },
   {
     id: 3,
-    name: 'lambamorð',
-    address: 'Lambhagastígur 59',
+    name: `Lambslaughter - ${services.getDate()} - Lamborgaratígur 59`,
+    address: 'Lamborgaratígur 59',
     postcode: '111',
     committed: services.getDate(),
     committedValue: 1522399907000,
@@ -181,7 +181,7 @@ tasks: [
   {
     id: 2,
     date: services.getDateWithHour(),
-    name: "Athuga hjá rannsóknarstofu hvort að sýni hefur komið til baka",
+    name: "Athuga hjá rannsóknarstofu hvort að sýni hefur komið til baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka og baka",
     assigned: "REK13",
     status: false,
   },

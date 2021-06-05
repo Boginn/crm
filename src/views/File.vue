@@ -229,7 +229,7 @@ export default {
     },
     fileCrime() {
       let crime = new data.Crime(this.id, services.getDate());
-      crime.name = `${this.crimeType} ${this.committed} ${this.address}`;
+      crime.name = `${this.crimeType} - ${this.committed} - ${this.address}`;
       crime.address = this.address;
       crime.postcode = this.postcode;
       crime.severity = this.severity;
