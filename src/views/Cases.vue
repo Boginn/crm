@@ -19,7 +19,7 @@
         <template v-slot:header.caseOpen="{}">
           <v-row class="d-flex justify-center align-center flex-wrap">
 
-          Include closed
+          Include Closed
           <v-checkbox v-model="showOpen"  class="ml-1 shrink"></v-checkbox>
           </v-row>
         </template>
@@ -99,8 +99,14 @@ export default {
       return data.headers.cases;
     },
     option() {
-      return data.options[4];
-    }
+      let option;
+      data.publicRoutes.forEach((element) => {
+        if (element.name == "File") {
+          option = element;
+          }
+      });
+          return option;
+    },
   },
 
   data: function() {
@@ -113,7 +119,7 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
 .table {
   font-size: 12pt;
   color: #f0c03c !important;

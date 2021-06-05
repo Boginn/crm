@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" class="mb-5 mt-5 font-shadow">
-    <v-btn width="250" @click="$router.go(-1)" class="secondary ma-0">back</v-btn>
+    <v-btn width="250" @click="$router.go(-1)" class="primary ma-0">back</v-btn>
 
   </v-row>
 </template>

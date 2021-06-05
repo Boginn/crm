@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-system-bar v-if="user" color="primaryDark" height="70">
+    <v-system-bar v-if="user" color="primary" height="70">
       <!-- <v-app-bar app dark color="primary" v-if="user"> -->
       <v-container fluid>
         <v-row>

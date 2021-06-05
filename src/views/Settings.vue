@@ -1,10 +1,21 @@
 <template>
   <v-container class="pb-16 mt-5">
-    <h1 class="text-center font-shadow">Settings</h1>
+    <v-form ref="form">
+    
     <v-row
       class="d-flex justify-center flex-wrap-reverse align-content-center mt-6"
     >
       <v-col xl="10" lg="10" md="10" sm="10" xs="10">
+
+        <v-row >
+          <v-icon small class="ml-3">mdi-account</v-icon>
+          <v-col>
+            <h4 style="color: #babbc3;">
+              Logged in as<i> {{ user.username }}</i>
+            </h4>
+            <v-divider class="vuegrey"></v-divider>
+          </v-col>
+        </v-row>
         <v-row class="seventh mb-1">
  <v-icon small class="ml-3 mr-3">mdi-web</v-icon>
                 <v-select
@@ -15,16 +26,6 @@
         >
         </v-select>
         </v-row>
-        <v-row >
-          <v-icon small class="ml-3">mdi-account</v-icon>
-          <v-col>
-            <h4 style="color: #babbc3;">
-              Logged in as<i> {{ user.username }}</i>
-            </h4>
-            <v-divider class="vuegrey"></v-divider>
-          </v-col>
-        </v-row>
-
         <v-row class="secondary mb-1">
           <v-icon small class="ml-3">mdi-account-outline</v-icon>
           <v-col>
@@ -122,6 +123,7 @@
 </v-row>
       </v-col>
     </v-row>
+    </v-form>
   </v-container>
 </template>
 
@@ -155,17 +157,24 @@ export default {
   }),
 
   methods: {
+      reset() {
+      this.$refs.form.reset();
+    },
     updateName() {
       this.user.name = this.name;
+      this.reset();
     },
     updatePassword() {
       this.user.password = this.password;
+      this.reset();
     },
     updatePhone() {
       this.user.phone = this.phone;
+      this.reset();
     },
     updateEmail() {
       this.user.email = this.email;
+      this.reset();
     },
   },
 };

@@ -50,19 +50,32 @@
             </v-col>
 
             <v-col cols="12" xl="6" lg="6" md="6" sm="12" xs="12">
-              <v-card-text>
+              <v-card-text class="d-flex">
+
+
                 <h3>
                   Case:
+      
                   <span v-if="crime.caseOpen" class="green--text">Open</span
                   ><span v-else class="red--text">Closed</span>
+                                
                 </h3>
+                              <v-checkbox
+              v-if="user.admin"
+              
+              v-model="crime.caseOpen"
+              class="ml-1 shrink"
+              style="margin-top: -5px; margin-bottom: -10px;"
+            ></v-checkbox>   
+
+
               </v-card-text>
               <v-card-text class=" pt-1">
                 <h3>
                   Reports:
                 </h3>
 
-                <v-dialog v-model="dialog" width="500">
+                <v-dialog v-model="dialog" width="500" :retain-focus="false">
                   <template v-slot:activator="{ on }">
                     <span
                       v-on="on"
@@ -76,26 +89,22 @@
                   </template>
 
                   <template v-if="dialogReport">
-                  <v-card>
-                    <v-card-title> {{dialogReport.badge}}</v-card-title>
+                    <v-card class="tertiary">
+                      <v-card-title> {{ dialogReport.badge }}</v-card-title>
 
-                    <v-card-text>
-                      {{dialogReport.body}}
-                    </v-card-text>
+                      <v-card-text>
+                        {{ dialogReport.body }}
+                      </v-card-text>
 
-                    <v-divider></v-divider>
+                      <v-divider></v-divider>
 
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn color="primary" text @click="dialog = false">
-                        Close
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
+                      <v-card-actions class="d-flex justify-center">
+                        <v-btn color="vuegrey" text @click="dialog = false">
+                          Close
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
                   </template>
-
-
-
                 </v-dialog>
               </v-card-text>
             </v-col>
@@ -169,50 +178,11 @@
                     </v-list>
                   </v-menu></v-card-title
                 >
-
                 <v-card-text
                   v-for="suspect in crime.suspects"
                   :key="suspect.id"
                 >
-                  <v-row>
-                    <v-col>
-                      <div>
-                        Name: <span class="lime--text">{{ suspect.name }}</span>
-                      </div>
-
-                      <div>
-                        Age: <span class="pink--text">{{ suspect.age }}</span>
-                      </div>
-
-                      <div>
-                        Address:
-                        <span class="amber--text">{{ suspect.address }}</span>
-                      </div>
-
-                      <div>
-                        Phone:
-                        <span class="orange--text">{{ suspect.phone }}</span>
-                      </div>
-
-                      <div>
-                        Ever jailed:
-                        <span class="red--text" v-if="suspect.hasBeenToPrison"
-                          >Yes</span
-                        ><span class="green--text" v-else>No</span>
-                      </div>
-                    </v-col>
-
-                    <v-col>
-                      <div class="fifth fill-height pa-2">
-                        <sup style="color: #babbc3">
-                          Note:
-                        </sup>
-
-                        <div style="font-size: 8pt">{{ suspect.note }}</div>
-                      </div>
-                    </v-col>
-                  </v-row>
-                  <v-divider class="mt-1"></v-divider>
+                  <SuspectEntry :suspect="suspect" />
                 </v-card-text>
               </div>
             </v-col>
@@ -230,7 +200,12 @@
                       text
                       class="ma-0"
                       title="Make a Note"
-                      > <span v-if="!crime.notes.length">be the first to comment</span> <span v-else>comment</span><v-icon small>
+                    >
+                      <span v-if="!crime.notes.length"
+                        >be the first to comment</span
+                      >
+                      <span v-else>comment</span
+                      ><v-icon small>
                         mdi-comment
                       </v-icon></v-btn
                     >
@@ -299,6 +274,7 @@
 
 <script>
 import Back from "./Back.vue";
+import SuspectEntry from "./SuspectEntry.vue";
 import services from "../services/services.js";
 import data from "../data/data.js";
 
@@ -313,6 +289,7 @@ export default {
 
   components: {
     Back,
+    SuspectEntry,
   },
 
   props: {},
@@ -382,6 +359,7 @@ export default {
     },
     addFromPerps(perp) {
       let criminal = new data.Criminal(this.crime.suspects.length + 1);
+      let okay = true;
       criminal.crimeId = this.crime.id;
       criminal.name = perp.name;
       criminal.address = perp.address;
@@ -389,7 +367,14 @@ export default {
       criminal.phone = perp.phone;
       criminal.hasBeenToPrison = perp.hasBeenToPrison;
       criminal.note = perp.note;
-      this.crime.suspects.push(criminal);
+
+      this.crime.suspects.forEach((suspect) => {
+        if (suspect.name == criminal.name) okay = false;
+      });
+
+      if (okay) {
+        this.crime.suspects.push(criminal);
+      }
 
       this.expand = false;
     },

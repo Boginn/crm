@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row class="d-flex justify-center flex-wrap-reverse align-content-center mt-6">
+    <v-row class="d-flex justify-center flex-wrap-reverse align-content-center mt-6" >
       <v-col
         cols="8"
         xl="4"
@@ -8,18 +8,19 @@
         md="4"
         sm="8"
         xs="8"
-        v-for="option in options"
-        :key="option.name"
+        v-for="route in routes"
+        :key="route.name"
       >
         <v-card
+
           class="pa-2 ma-3 font-shadow bgimg"
-          :class="option.color"
+          :class="route.color"
         >
 
-          <router-link class="white--text" :to="`/${(option.name).toLowerCase()}/`">
+          <router-link class="white--text" :to="`/${(route.name).toLowerCase()}/`">
             <v-card-title class="d-flex justify-center" >
-              {{ option.name }} 
-            <v-icon x-large class="ml-2"> {{option.icon}}</v-icon>
+              {{ route.name }} 
+            <v-icon x-large class="ml-2"> {{route.icon}}</v-icon>
             </v-card-title>
           </router-link>
         </v-card>
@@ -50,8 +51,17 @@ export default {
     user() {
       return this.$store.getters.user;
     },
-    options() {
-      return data.options;
+    routes() {
+      let routes = [];
+      data.publicRoutes.forEach(element => {
+        routes.push(element);
+      });
+      if(this.user.admin) {
+        data.adminRoutes.forEach(element => {
+          routes.push(element);
+        });
+      }
+      return routes;
     }
   },
 

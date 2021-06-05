@@ -5,7 +5,7 @@
 
       <!-- AddCriminal Modal -->
       <!-- how would I go about extracting this? -->
-      <v-dialog v-model="expand" width="500">
+      <v-dialog v-model="expand" width="500" :retain-focus="false">
         <template v-slot:activator="{ on }">
           <span @click="draft()" v-on="on">
             <NavChip :option="option" />
@@ -92,10 +92,18 @@
       >
         <!-- eslint-disable-next-line -->
         <template v-slot:item.name="{ item }">
-          <span class="lime--text" @click.stop="showDialog(item)" > {{ item.name }} {{ item.id }}</span>
+          <v-icon class="mb-1" small>mdi-arrow-top-left</v-icon>
+          <span class="lime--text table" @click.stop="showDialog(item)">
+            {{ item.name }} </span
+          >
 
-  <ScheduleForm :visible="showScheduleForm" @close="showScheduleForm=false" :item="criminal" />
-
+          <CriminalDetails
+          @
+            :criminal="criminal"
+            :visible="showDetails"
+           @remove="remove"
+            @close="showDetails = false"
+          />
         </template>
         <!-- eslint-disable-next-line -->
         <template v-slot:item.address="{ item }">
@@ -123,7 +131,7 @@ import Back from "../components/Back";
 import data from "../data/data.js";
 import services from "../services/services.js";
 
-import ScheduleForm from '../components/ScheduleForm'
+import CriminalDetails from "../components/CriminalDetails";
 
 export default {
   name: "Perps",
@@ -138,7 +146,7 @@ export default {
     Search,
     NavChip,
     Back,
-    ScheduleForm,
+    CriminalDetails,
   },
 
   computed: {
@@ -160,7 +168,13 @@ export default {
       return data.headers.perps;
     },
     option() {
-      return data.otherOptions[1];
+      let option;
+      data.dialogRoutes.forEach((element) => {
+        if (element.name == "Add Criminal") {
+          option = element;
+          }
+      });
+          return option;
     },
 
     rules() {
@@ -171,7 +185,7 @@ export default {
   data: function() {
     return {
       expand: false,
- showScheduleForm: false,
+      showDetails: false,
       subject: undefined,
       criminal: undefined,
     };
@@ -196,11 +210,27 @@ export default {
     cancel() {
       this.expand = false;
     },
+        remove(obj) {
+          console.log(this.criminals)
+      this.criminals.splice(this.criminals.indexOf(obj), 1);
+     
+    },
     showDialog(obj) {
-      this.showScheduleForm = true;
+      this.showDetails = true;
       this.criminal = obj;
-      console.log(this.criminal)
     },
   },
 };
 </script>
+
+<style scoped>
+.table {
+  cursor: pointer;
+  font-size: 12pt;
+  color: #f0c03c !important;
+  font-weight: bold;
+}
+.table:hover {
+  color: white !important;
+}
+</style>

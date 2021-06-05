@@ -6,6 +6,23 @@ class Person {
 }
 
 export default {
+  User: class {
+    id;
+    username;
+    password;
+    name;
+    badge;
+    email;
+    phone;
+    active = true;
+    admin = false;
+    delegate = false;
+
+    constructor(id) {
+      this.id = id;
+    }
+  },
+
   Victim: class extends Person {
     id;
     crimeId;
@@ -106,56 +123,78 @@ export default {
     "Other",
   ],
 
-  options: [
+
+
+  publicRoutes: [
     {
       name: "Perps",
       path: "perps",
-      image: require("@/assets/file.png"),
       icon: "mdi-account-cowboy-hat",
       color: "fifth",
+      public: true,
     },
     {
       name: "Tasks",
       path: "tasks",
-      image: require("@/assets/tasks.png"),
       icon: "mdi-folder-table",
       color: "fifth",
+      public: true,
     },
     {
       name: "Cases",
       path: "cases",
-      image: require("@/assets/cases.png"),
       icon: "mdi-file-multiple",
       color: "fifth",
+      public: true,
     },
     {
       name: "Report",
       path: "report",
-      image: require("@/assets/report.png"),
       icon: "mdi-file-document-edit",
       color: "seventh",
+      public: true,
     },
     {
       name: "File",
       path: "file",
-      image: require("@/assets/file.png"),
       icon: "mdi-file-upload",
       color: "seventh",
+      public: true,
     },
+
   ],
 
-  otherOptions: [
+  dialogRoutes: [
     {
       name: "New Task",
       path: false,
       icon: "mdi-folder",
       color: "secondary",
+      public: true,
     },
     {
       name: "Add Criminal",
       path: false,
       icon: "mdi-account-cowboy-hat",
       color: "secondary",
+      public: true,
+    },
+    {
+      name: "New User",
+      path: false,
+      icon: "mdi-account",
+      color: "secondary",
+      public: false,
+    },
+  ],
+
+  adminRoutes: [
+    {
+      name: "Roster",
+      path: "roster",
+      icon: "mdi-account-group",
+      color: "tertiary",
+      public: false,
     },
   ],
 
@@ -181,93 +220,4 @@ export default {
       { text: "Phone", value: "phone", sortable: false },
     ],
   },
-
-  // tasks: [
-  //   {
-  //     id: 1,
-  //     name: "Taka viðtal við Jónas varðandi morð",
-  //     assigned: "REK13",
-  //     status: false,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Athuga hjá rannsóknarstofu hvort að sýni hefur komið til baka",
-  //     assigned: "REK13",
-  //     status: false,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Finna þrjá karlmenn í line-up",
-  //     assigned: "REK10",
-  //     status: true,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Gefa út sekt vegna ölvunar-akstur",
-  //     assigned: "REK13",
-  //     status: false,
-  //   },
-  // ],
-
-  // crimes: [
-  //   {
-  //     id: 1,
-  //     name: "Rán 11.12.2020 Bæjarbakarí Mosfellsbær",
-  //     address: "Horngata 3",
-  //     crimeType: "Rán",
-  //     date: "11.12.2020",
-  //     shortDesc: "Stutt lýsing",
-  //     severness: 7,
-  //     notes: [
-  //       {
-  //         id: 1,
-  //         crimeId: 1,
-  //         body:
-  //           "Hermann hringdi og lét vita að ræningjarnir náðu að stela 5þ kr.",
-  //         date: "12.12.2020",
-  //       },
-  //       {
-  //         id: 2,
-  //         crimeId: 1,
-  //         body: "Jón spæjó heldur að þeir hafi verið með inside-man.",
-  //         date: "14.12.2020",
-  //       },
-  //     ],
-  //     victims: [
-  //       {
-  //         id: 1,
-  //         crimeId: 1,
-  //         name: "Hrógmar Hermanns",
-  //         address: "Dúfnahólar 10",
-  //         phone: "5553212",
-  //         age: 43,
-  //       },
-  //       {
-  //         id: 2,
-  //         crimeId: 1,
-  //         name: "Hallbera Halldórs",
-  //         address: "Hafnarbakki 11",
-  //         phone: "5554312",
-  //         age: 19,
-  //       },
-  //     ],
-  //     suspect: [{ id: 1, name: "Glanni glæpon" }],
-  //     caseStatus: true,
-  //   },
-  // ],
-
-  // reports: [
-  //   {
-  //     id: 1,
-  //     caseId: 1,
-  //     userName: "Lárus Lögga",
-  //     body: "Öll skýrslan. loads of text..",
-  //   },
-  //   {
-  //     id: 2,
-  //     caseId: 2,
-  //     userName: "Lárus Lögga",
-  //     body: "Öll skýrslan. loads of text..",
-  //   },
-  // ],
 };

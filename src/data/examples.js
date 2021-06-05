@@ -219,6 +219,7 @@ roster: [
     phone: "5752299",
     active: true,
     admin: true,
+    delegate: true,
   },
   {
     id: 2,
@@ -230,6 +231,7 @@ roster: [
     phone: "5552299",
     active: true,
     admin: false,
+    delegate: false,
   },
   {
     id: 3,
@@ -239,8 +241,9 @@ roster: [
     badge: "REK10",
     email: "nonni@logga.is",
     phone: "5552299",
-    active: true,
+    active: false,
     admin: false,
+    delegate: false,
   },
   {
     id: 4,
@@ -252,6 +255,7 @@ roster: [
     phone: "512345",
     active: true,
     admin: false,
+    delegate: true,
   },
 
 ],

@@ -5,16 +5,16 @@
         <v-card class="pa-10 sixth ">
           <v-row class="text-center font-shadow">
             <v-col>
-              <h1 class="title">
+              <h1 class="title shadow">
                 LÖKE
               </h1>
 
 
 
 
-              <h2>
+              <h3 class="shadow">
                 {{ msg }}
-              </h2>
+              </h3>
             </v-col>
           </v-row>
 
@@ -50,8 +50,8 @@
             </v-row>
             <v-row>
               <v-col class="text-center">
-                <v-btn :disabled="!valid" color="secondary" @click="validate">
-                  Submit
+                <v-btn :disabled="!valid" color="primary" @click="validate">
+                  submit
                 </v-btn>
               </v-col>
             </v-row>
@@ -132,3 +132,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.title {
+  font-family: Georgia, 'Times New Roman', Times, serif !important;
+  font-size: 22pt !important;
+}
+.shadow {
+   text-shadow: black 3px 3px !important;
+}
+</style>

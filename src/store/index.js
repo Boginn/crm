@@ -23,6 +23,7 @@ export default new Vuex.Store({
   },
 
   getters: {
+    // user
     user(state) {
       return state.user;
     },
@@ -31,17 +32,42 @@ export default new Vuex.Store({
       return state.search;
     },
 
+    //
+    badges(state) {
+      let toSplit = [];
+      let takenBadges = [];
+      let badges = [];
+
+      for (let i = 1; i <=100; i++) {
+        badges.push(i);
+              }
+
+      state.roster.forEach(element => {
+        toSplit.push(element.badge);
+      });
+
+      toSplit.forEach(element => {
+        takenBadges.push(parseInt(element.split('REK')[1]))
+               
+      });
+
+      
+      badges = badges.filter(badge => !takenBadges.includes(badge));
+      console.log(badges)
+      
+      return badges;
+    },
+    //
     getCrimeById: (state) => (id) => {
       return state.cases[id - 1];
     },
-    
+
     getCrimeByName: (state) => (name) => {
       for (let i = 0; i < state.cases.length; i++) {
         if (state.cases[i].name == name) {
           return state.cases[i];
         }
       }
-
     },
 
     //id
@@ -98,6 +124,9 @@ export default new Vuex.Store({
     addTask(context, payload) {
       context.commit("ADD_TASK", payload);
     },
+    addUser(context, payload) {
+      context.commit("ADD_USER", payload);
+    },
     setUser(context, payload) {
       context.commit("SET_USER", payload);
     },
@@ -145,6 +174,10 @@ export default new Vuex.Store({
     ADD_TASK(state, payload) {
       state.taskId++;
       state.tasks.push(payload);
+    },
+    ADD_USER(state, payload) {
+      state.userId++;
+      state.roster.push(payload);
     },
 
     SET_USER(state, payload) {
