@@ -196,7 +196,11 @@ export default {
     validate() {
       if (this.$refs.form.validate()) {
         this.add();
+        this.reset();
       }
+    },
+    reset() {
+      this.$refs.form.reset();
     },
 
     draft() {
@@ -205,7 +209,10 @@ export default {
     },
     add() {
       if (this.subject) {
-        // this.subject.assigned = this.assigned ? this.assigned : this.user.badge;
+        if(this.user.delegate) {
+
+          this.subject.assigned = this.assigned ? this.assigned : '';
+        }
         this.$store.dispatch("addTask", this.subject);
         
       }
@@ -213,6 +220,7 @@ export default {
     },
 
     cancel() {
+      this.reset();
       this.expand = false;
     },
   },

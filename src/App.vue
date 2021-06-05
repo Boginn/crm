@@ -56,35 +56,11 @@ export default {
       }
     }
 
+    //inject examples
+if(!this.init) {
 
-//inject examples
-this.$store.dispatch('setCaseId', examples.cases.length+1)
-this.$store.dispatch('setTaskId', examples.tasks.length+1)
-
-this.$store.dispatch('setCriminalId', examples.criminals.length+1)
-    this.$store.dispatch('setReportId', examples.reports.length+1)
-    this.$store.dispatch('setUserId', examples.roster.length+1)
-
-      examples.cases.forEach((element) => {
-        this.cases.push(element);
-      });
-      examples.tasks.forEach((element) => {
-        this.tasks.push(element);
-      });
-    examples.criminals.forEach((element) => {
-      this.criminals.push(element);
-    });
-    examples.reports.forEach((element) => {
-      this.reports.push(element);
-    });
-
-    examples.roster.forEach((element) => {
-      this.roster.push(element);
-    });
-
-
-
-
+  this.seedExamples();
+}
   },
 
   computed: {
@@ -110,8 +86,38 @@ this.$store.dispatch('setCriminalId', examples.criminals.length+1)
   },
 
   data: () => ({
-    //
+    init: false,
   }),
+
+  methods: {
+    seedExamples() {
+      this.init = true;
+
+      this.$store.dispatch("setCaseId", examples.cases.length + 1);
+      this.$store.dispatch("setTaskId", examples.tasks.length + 1);
+
+      this.$store.dispatch("setCriminalId", examples.criminals.length + 1);
+      this.$store.dispatch("setReportId", examples.reports.length + 1);
+      this.$store.dispatch("setUserId", examples.roster.length + 1);
+
+      examples.cases.forEach((element) => {
+        this.cases.push(element);
+      });
+      examples.tasks.forEach((element) => {
+        this.tasks.push(element);
+      });
+      examples.criminals.forEach((element) => {
+        this.criminals.push(element);
+      });
+      examples.reports.forEach((element) => {
+        this.reports.push(element);
+      });
+
+      examples.roster.forEach((element) => {
+        this.roster.push(element);
+      });
+    },
+  },
 };
 </script>
 

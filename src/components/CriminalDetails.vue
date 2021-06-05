@@ -8,7 +8,7 @@
         <SuspectEntry :suspect="criminal" />
       </v-card-text>
       <v-card-actions class="d-flex justify-center" style="margin-top: -10px;">
-        <v-btn color="vuegrey" text @click.stop="remove(criminal)"
+        <v-btn v-if="user.admin" color="vuegrey" text @click.stop="remove(criminal)"
           >Delete</v-btn
         >
         <v-btn color="vuegrey" text @click.stop="show = false">Close</v-btn>
@@ -27,6 +27,9 @@ export default {
   props: ["visible", "criminal"],
 
   computed: {
+    user() {
+      return this.$store.getters.user;
+    },
     show: {
       get() {
         return this.visible;
