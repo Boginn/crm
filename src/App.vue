@@ -57,10 +57,9 @@ export default {
     }
 
     //inject examples
-if(!this.init) {
-
-  this.seedExamples();
-}
+    if (!this.init) {
+      this.seedExamples();
+    }
   },
 
   computed: {
@@ -115,6 +114,9 @@ if(!this.init) {
         this.roster.push(element);
       });
     },
+
+ 
+    
   },
 };
 </script>

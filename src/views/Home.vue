@@ -36,6 +36,7 @@
 
 <script>
 import data from '../data/data.js'
+
 export default {
   name: "Home",
 
@@ -62,7 +63,9 @@ export default {
         });
       }
       return routes;
-    }
+    },
+
+
   },
 
   data: function() {
@@ -71,6 +74,8 @@ export default {
     };
   },
 
-  methods: {},
+  methods: {
+
+  },
 };
 </script>

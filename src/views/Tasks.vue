@@ -105,22 +105,11 @@
           </v-dialog>
         </template>
 
-        <!-- eslint-disable-next-line -->
-        <template v-slot:item.status="{ item }">
-          <v-row class="d-flex justify-center align-center flex-wrap">
-            <v-checkbox
-              v-if="user.badge == item.assigned || user.admin"
-              v-model="item.status"
-              class="ml-1 shrink"
-            ></v-checkbox>
-            <span class="green--text" v-if="item.status">Yes</span
-            ><span class="red--text" v-else>No</span>
-          </v-row>
-        </template>
-
+        
         <!-- eslint-disable-next-line -->
         <template v-slot:item.assigned="{ item }">
           <v-select
+          style="max-width: 90px"
             v-if="user.delegate"
             color="tertiary"
             class="mr-3 "
@@ -135,6 +124,20 @@
             <span v-else> {{ item.assigned }}</span>
           </span>
         </template>
+
+        <!-- eslint-disable-next-line -->
+        <template v-slot:item.status="{ item }">
+          <v-row class="d-flex justify-center align-center flex-wrap">
+            <v-checkbox
+              v-if="user.badge == item.assigned || user.admin"
+              v-model="item.status"
+              class="ml-1 shrink"
+            ></v-checkbox>
+            <span class="green--text" v-if="item.status">Yes</span
+            ><span class="red--text" v-else>No</span>
+          </v-row>
+        </template>
+
       </v-data-table>
     </v-row>
 
