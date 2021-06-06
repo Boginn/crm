@@ -5,7 +5,7 @@
 
       <Search :location="$options.name"/>
 
-      <NavChip :option="option" class="mt-3"/>
+      <NavChip v-if="user.active"  :option="option" class="mt-3"/>
 
       <v-data-table
         :headers="headers"

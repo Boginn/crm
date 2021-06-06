@@ -5,7 +5,7 @@
 
       <!-- AddCriminal Modal -->
       <!-- how would I go about extracting this? -->
-      <v-dialog v-model="expand" width="500" :retain-focus="false">
+      <v-dialog v-if="user.active" v-model="expand" width="500" :retain-focus="false">
         <template v-slot:activator="{ on }">
           <span @click="draft()" v-on="on">
             <NavChip :option="option" />

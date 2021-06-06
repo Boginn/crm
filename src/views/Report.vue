@@ -1,8 +1,7 @@
 <template>
   <div class="mt-5">
-
     <v-container>
-      <v-col>
+      <v-col v-if="user.active">
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-row class="d-flex justify-center">
             <v-col
@@ -17,23 +16,19 @@
               <h1 class="text-center mb-2">File Report #{{ id }}</h1>
               <v-container>
                 <v-row>
-
                   <v-select
                     placeholder="Select the crime you are reporting on"
                     filled
                     dense
-                    
-                   :rules="rules.default"
+                    :rules="rules.default"
                     :item-value="crime.name"
                     v-model="assigned"
                     :items="names"
                     required
                   >
                   </v-select>
-</v-row>
-<v-row>
-  
-</v-row>
+                </v-row>
+                <v-row> </v-row>
                 <v-row>
                   <v-textarea
                     class=""
@@ -45,8 +40,6 @@
                     required
                   ></v-textarea>
                 </v-row>
-
-
               </v-container>
 
               <v-row>
@@ -78,11 +71,15 @@
           </v-row>
         </v-form>
       </v-col>
+      <v-col v-else>
+        <Inactive msg="file a report" />
+      </v-col>
     </v-container>
   </div>
 </template>
 
 <script>
+import Inactive from "../components/Inactive.vue";
 import services from "../services/services.js";
 import data from "../data/data.js";
 
@@ -93,14 +90,15 @@ export default {
     if (!this.user) {
       this.$router.push("/");
     }
+  },
 
+  components: {
+    Inactive,
   },
 
   props: {},
 
-
   computed: {
-
     id() {
       return this.$store.getters.reportId;
     },
@@ -118,8 +116,9 @@ export default {
       return this.$store.getters.cases;
     },
     crime() {
-return this.assigned ? this.$store.getters.getCrimeByName(this.assigned) : this.$store.getters.cases[0];
-      
+      return this.assigned
+        ? this.$store.getters.getCrimeByName(this.assigned)
+        : this.$store.getters.cases[0];
     },
     names() {
       let names = [];
@@ -149,7 +148,6 @@ return this.assigned ? this.$store.getters.getCrimeByName(this.assigned) : this.
       }
     },
     reset() {
-     
       this.$refs.form.reset();
     },
     fileReport() {
@@ -166,5 +164,4 @@ return this.assigned ? this.$store.getters.getCrimeByName(this.assigned) : this.
 ::placeholder {
   color: #babbc3;
 }
-
 </style>

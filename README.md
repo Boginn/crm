@@ -7,7 +7,7 @@
 
 <p>I played around with the API for a bit but having already finished the project I didn't want to rewrite it to use the API since I'm happy with how it works as is. I wrote examples that get injected, once (...well almost), into the state store when the app gets created.</p>
 
-<p>Users have three bools: active, admin and delegate. Admins have access to the roster page where they can set permissions and add/remove users. They can also edit or delete anything that allows for it. Users with 'delegate' set as true can assign tasks to any other user.</p>
+<p>Users have three bools: active, admin and delegate. Admins have access to the roster page where they can set permissions and add/remove users. They can also edit or delete anything that allows for it. Users with 'delegate' set as true can assign tasks to any other user. Inactive users can only read, not write.</p>
 
 # username: 'fannar', password: 'ntv' is an active user with delegation privilige.
 

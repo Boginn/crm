@@ -3,7 +3,7 @@
     <v-row class="d-flex justify-start">
       <Search :location="$options.name" />
 
-      <v-dialog v-model="expand" width="500">
+      <v-dialog v-if="user.active"  v-model="expand" width="500">
         <template v-slot:activator="{ on }">
           <span @click="draft()" v-on="on">
             <NavChip :option="option" />

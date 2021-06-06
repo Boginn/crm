@@ -1,14 +1,13 @@
 <template>
   <div class="mt-5">
     <v-container>
-      <v-col>
+      <v-col v-if="user.active">
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-row>
             <v-col class="sixth">
               <h1 class="text-center mb-2">File Criminal Case #{{ id }}</h1>
               <v-container >
                 <v-row>
-
                 <v-text-field
                 class="mr-1"
                   filled
@@ -137,12 +136,16 @@
           </v-row>
         </v-form>
       </v-col>
+      <v-col v-else>
+        <Inactive msg="file a case"/>
+      </v-col>
     </v-container>
   </div>
 </template>
 
 <script>
 import People from "../components/People.vue";
+import Inactive from "../components/Inactive.vue";
 import services from "../services/services.js";
 import data from "../data/data.js";
 
@@ -157,6 +160,7 @@ export default {
 
   components: {
     People,
+    Inactive,
   },
 
   computed: {

@@ -151,7 +151,7 @@
                 <v-card-title style="margin-bottom: -20px">
                   <sup style="color: #babbc3;">Suspects</sup>
 
-                  <v-menu offset-y>
+                  <v-menu offset-y v-if="user.active" >
                     <template v-slot:activator="{ on }">
                       <v-btn
                         v-on="on"
@@ -193,7 +193,7 @@
               <v-dialog v-model="expandNote" width="500" v-if="crime.caseOpen">
                 <template v-slot:activator="{ on }">
                   <v-col>
-                    <v-btn
+                    <v-btn  v-if="user.active" 
                       v-on="on"
                       small
                       block
