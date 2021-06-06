@@ -50,7 +50,7 @@
             </v-row>
             <v-row>
               <v-col class="text-center">
-                <v-btn :disabled="!valid" color="primary" @click="validate">
+                <v-btn :disabled="!valid" color="primaryCustom" @click="validate">
                   submit
                 </v-btn>
               </v-col>

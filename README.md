@@ -1,6 +1,7 @@
 # loke-crm
 (c) Finnbogi Jökull Pétursson, 2021.
 
+<i>When this project is deployed on Netlify the v-tabs tags in the app-bar do not render properly.</i>
 
 <p>There's quite a bit of repeating code that I would have liked to extract and refactor better. To do that I think it would be best to start over with all of that in mind.</p>
 

@@ -1,12 +1,10 @@
 <template>
   <v-app>
-    <v-system-bar v-if="user" color="primary" height="70">
-      <!-- <v-app-bar app dark color="primary" v-if="user"> -->
+    <v-system-bar v-if="user" color="primaryCustom" height="70">
       <v-container fluid>
         <v-row>
           <v-col class="d-flex align-content-center flex-wrap">
             <v-tab>
-              <!-- <RouteNav/> -->
               <router-link to="/" class="white--text">
                 <DigitalClock :blink="true" class="ml-2" />
               </router-link>
@@ -26,7 +24,6 @@
         </v-row>
       </v-container>
     </v-system-bar>
-    <!-- </v-app-bar> -->
 
     <v-main class="fourth">
       <router-view />

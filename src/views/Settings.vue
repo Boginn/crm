@@ -115,7 +115,7 @@
 <v-col>
 
         <router-link :to="'/logout/'" class="white--text">
-          <v-btn outlined block class="primary ma-0"
+          <v-btn outlined block class="primaryCustom ma-0"
             ><v-icon>mdi-logout</v-icon> Logout</v-btn
           >
         </router-link>
